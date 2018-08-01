@@ -1,0 +1,22 @@
+{
+  "name": "haveanother",
+  "version": "1.0.0",
+  "description": "beer review app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Btan579/HaveAnother.git"
+  },
+  "author": "Brendan Tanner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Btan579/HaveAnother/issues"
+  },
+  "homepage": "https://github.com/Btan579/HaveAnother#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
