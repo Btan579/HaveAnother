@@ -2,7 +2,7 @@
   "name": "haveanother",
   "version": "1.0.0",
   "description": "beer review app",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node server.js"
   },
