@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Have Another?</title>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> 
-    <script src="main.js"></script> -->
 </head>
+
 <body>
-    <h1>Hello World!</h1>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="index.js"></script>
-    
+    <header role="banner">
+        <div class="row">
+            <div class="column">
+                <h1>
+                    <a href="#" class="welcome-link">
+                        <span class="mug">Have</span>
+                        <span class="mug">Another?</span>
+                    </a>
+                </h1>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <div class="column log-links">
+            <a href="#" class="login" hidden>Log in</a>
+            <a href="#" class="logout" hidden>Log out</a>
+        </div>
+        <div class="column" hidden>
+            <section class="userinfo">
+                <div class="row">
+                    <div class="flex-column">
+                        <h2 class="logged-in">Logged in:</h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="row">
+            <div class="column">
+                <section class="landing">
+                    <h2>Welcome to Have another!</h2>
+                    <p>Have another is a place to review beers you like...or don't like</p>
+                    <p>
+                        <a href="#" class="register-link">Sign up</a> or
+                        <a href="#" class="login-link">log in</a> and get reviewing.</p>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <form class="form-signup" hidden>
+                    <div class="column">
+                        <input type="text" class="form-signup_username" placeholder="username" required>
+                    </div>
+                    <div class="column">
+                        <input type="password" class="form-signup_password" placeholder="password" required>
+                    </div>
+                    <input type="submit" class="form-signup_submit bottle" value="Signup">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <form class="form-login" hidden>
+                    <div class="column">
+                        <input type="text" class="form-login_username" placeholder="username" required>
+                    </div>
+                    <div class="column">
+                        <input type="password" class="form-login_password" placeholder="password" required>
+                    </div>
+                    <input type="submit" class="form-login_submit bottle" value="Login">
+                    <!-- <p>demo_user demo_password</p> -->
+                </form>
+            </div>
+        </div>
+<div class="row">
+    <div class="column">
+        <section class="home">
+            <h2>Beer Reviews!</h2>
+
+        </section>
+    </div>
+</div>
+
+
+    </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+    <!-- <script src="js/event-listeners.js"></script>
+    <script src="js/html-renderer.js"></script> -->
+    <script src="js/app.js"></script>
+    <!-- <script src="js/data.js"></script> -->
 </body>
 
 </html>

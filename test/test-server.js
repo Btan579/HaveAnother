@@ -9,8 +9,8 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe("index page", function () {
-    it("should exist", function () {
+describe("GET endpoint", function () {
+    it("should return all existing reviews", function () {
         return chai
             .request(app)
             .get("/")
