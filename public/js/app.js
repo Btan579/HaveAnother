@@ -1,56 +1,56 @@
+let state = {
+    MOCK_REVIEWS: {
+        'beerReviews': [{
+                beerName: 'Heady Topper',
+                breweryName: 'Alchemist',
+                beerStyle: 'Double IPA',
+                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                haveAnother: 'Ill have another!',
+                user: 'btan579',
+                reviewID: 111
+            },
+            {
+                beerName: 'IPA',
+                breweryName: 'Harpoon',
+                beerStyle: 'IPA',
+                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                haveAnother: 'Ill have another!',
+                user: 'brian79',
+                reviewID: 1112
+            },
+            {
+                beerName: 'Boston Lager',
+                breweryName: 'Sam Adams',
+                beerStyle: 'Lager',
+                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                haveAnother: 'Ill have another!',
+                user: 'btan579',
+                reviewID: 1113
+            }, {
+                beerName: 'Alter Ego',
+                breweryName: 'Tree house',
+                beerStyle: 'American IPA',
+                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                haveAnother: 'Ill have another!',
+                user: 'paul9',
+                reviewID: 1114
+            },
+            {
+                beerName: 'Sip of Sunshine ',
+                breweryName: 'Lawsons Finest',
+                beerStyle: 'IPA',
+                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                haveAnother: 'Nah',
+                user: 'mom',
+                reviewID: 1115
+            }
+        ]
+    },
 
-const MOCK_REVIEWS = {
-    'beerReviews': [{
-            beerName: 'Heady Topper',
-            breweryName: 'Alchemist',
-            beerStyle: 'Double IPA',
-            beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            haveAnother: 'Ill have another!',
-            user: 'btan579',
-            reviewID: 111
-        },
-        {
-            beerName: 'IPA',
-            breweryName: 'Harpoon',
-            beerStyle: 'IPA',
-            beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            haveAnother: 'Ill have another!',
-            user: 'brian79',
-            reviewID: 1112
-        },
-        {
-            beerName: 'Boston Lager',
-            breweryName: 'Sam Adams',
-            beerStyle: 'Lager',
-            beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            haveAnother: 'Ill have another!',
-            user: 'btan579',
-            reviewID: 1113
-        }, {
-            beerName: 'Alter Ego',
-            breweryName: 'Tree house',
-            beerStyle: 'American IPA',
-            beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            haveAnother: 'Ill have another!',
-            user: 'paul9',
-            reviewID: 1114
-        },
-        {
-            beerName: 'Sip of Sunshine ',
-            breweryName: 'Lawsons Finest',
-            beerStyle: 'IPA',
-            beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            haveAnother: 'Nah',
-            user: 'mom',
-            reviewID: 1115
-        }
-    ]
+
+
+    reviews: {}
 };
-
-
-// let state = {
-//     reviews: {}
-// };
 
 
 // const newBeerReviews = {
@@ -63,51 +63,109 @@ const MOCK_REVIEWS = {
 //     reviewID: ''
 // };
 
-function getBeerReviews (callbackFn) {
+const App = {
+
+
+    getBeerReviews: (callbackFn) => {
         setTimeout(function () {
-            callbackFn(MOCK_REVIEWS)
+            callbackFn(state.MOCK_REVIEWS)
         }, 1);
 
-    };
+    },
+    displayBeerReviews: (data) => {
 
-    function displayBeerReviews (data) {
-        for (index in data.beerReviews) {
-            $('.home').append('<p>' + data.beerReviews[index].beerName + '</p>');
-            $('.home').append('<p>' + data.beerReviews[index].breweryName + '</p>');
-            $('.home').append('<p>' + data.beerReviews[index].beerStyle + '</p>');
-            $('.home').append('<p>' + data.beerReviews[index].beerDescrip + '</p>');
-            $('.home').append('<p>' + data.beerReviews[index].haveAnother + '</p>');
-            $('.home').append('<p>' + data.beerReviews[index].user + '</p>');
+        for (let i = 0; i < data.beerReviews.length; i++) {
+            $('.home').append('<p>' + data.beerReviews[i].beerName + '</p>');
+            $('.home').append('<p>' + data.beerReviews[i].breweryName + '</p>');
+            $('.home').append('<p>' + data.beerReviews[i].beerStyle + '</p>');
+            $('.home').append('<p>' + data.beerReviews[i].beerDescrip + '</p>');
+            $('.home').append('<p>' + data.beerReviews[i].haveAnother + '</p>');
+            $('.home').append('<p>' + data.beerReviews[i].user + '</p>');
         }
 
-    };
+    },
 
-   function getAndDisplayBeerReviews () {
+    getAndDisplayBeerReviews: () => {
 
-        getBeerReviews(displayBeerReviews);
+        App.getBeerReviews(App.displayBeerReviews);
     }
 
+};
+$(function () {
+    App.getAndDisplayBeerReviews();
+    EventListeners.startListeners();
+});
 
-    $(function () {
-        getAndDisplayBeerReviews();
-    })
+
+const HTMLRenderer = {
+
+
+};
+
+const EventListeners = {
+    listenersStarted: false,
+
+    startListeners: function () {
+        if (!this.listenersStarted) {
+            this.reviewSubmit();
+            this.listenersStarted = true;
+        }
+    },
+    reviewSubmit: function () {
+        $(".beer-form").submit(function (event) {
+            event.preventDefault();
+            const beerInput = $(this).find("#beer-name").val();
+            const breweryInput = $(this).find("#brewery").val();
+            const beerStyleInput = $(this).find("#beer-style").val();
+            const beerDescriptionInput = $(this).find("#beer-description").val();
+            const haveAnotherInput = $(this).find("#have-another").val();
+            const notHaveAnotherInput = $(this).find("#not-another").val();
+
+            let haveAnotherchecked;
+            if (haveAnotherInput.checked = true) {
+                haveAnotherchecked = "I'll Have another!";
+            } else {
+                haveAnotherchecked = 'Nah';
+            }
+
+
+
+            const newID = Math.random().toString(36).substr(2, 16);
+
+
+
+            const newBeerReview = {
+                beerName: beerInput,
+                breweryName: breweryInput,
+                beerStyle: beerStyleInput,
+                beerDescrip: beerDescriptionInput,
+                haveAnother: haveAnotherchecked,
+                user: 'user',
+                reviewID: newID
+            };
+            state.MOCK_REVIEWS.beerReviews.push(newBeerReview);
+
+        });
+    }
+};
+
 
 // const App = {
-    
+
 //     // reviews: {},
 
 //     // getBeerReviews: (callbackFn) => {
 //     //     setTimeout(function(){ callbackFn(MOCK_REVIEWS)}, 1);
 
 //     // },
-     
+
 //     // displayBeerReviews: data => {
 //     //          for (index in data.beerReviews) {
 //     //              $('.home').append('<p>' + data.beerReviews[index] + '</p>');
 //     //          }
-              
+
 //     // },
-   
+
 //     // getAndDisplayBeerReviews: () => {
 
 //     //     getBeerReviews(displayBeerReviews);
@@ -131,9 +189,7 @@ function getBeerReviews (callbackFn) {
 
 //     // },
 
-//     // generateReviewID: function () {
-//     //     return Math.random().toString(36).substr(2, 16);
-//     // }
+
 
 // };
 
@@ -143,7 +199,7 @@ function getBeerReviews (callbackFn) {
 
 // const HTMLRenderer = {
 
-   
+
 // };
 
 // const EventListeners = {
