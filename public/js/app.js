@@ -47,21 +47,36 @@ let state = {
         ]
     },
 
-
+    MOCK_USERS: [
+        {
+            id: "111",
+            username: 'btan579',
+            password: 'password1'
+        },
+        {
+            id: "222",
+            username: 'brian79',
+            password: 'password2'
+        },
+        {
+            id: "333",
+            username: 'paul9',
+            password: 'password3'
+        },
+        {
+            id: "444",
+            username: 'mom1',
+            password: 'password4'
+        },
+        {
+            id: "555",
+            username: 'beerfan1',
+            password: 'password5'
+        }
+    ],
 
     reviews: {}
 };
-
-
-// const newBeerReviews = {
-//     beerName: 'Heady Topper',
-//     breweryName: 'Alchemist',
-//     beerStyle: 'Double IPA',
-//     beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//     haveAnother: 'Ill have another!',
-//     user: 'btan579',
-//     reviewID: ''
-// };
 
 const App = {
 
@@ -72,8 +87,8 @@ const App = {
         }, 1);
 
     },
+// Display All Reviews   
     displayBeerReviews: (data) => {
-
         for (let i = 0; i < data.beerReviews.length; i++) {
             $('.home').append('<p>' + data.beerReviews[i].beerName + '</p>');
             $('.home').append('<p>' + data.beerReviews[i].breweryName + '</p>');
@@ -86,16 +101,14 @@ const App = {
     },
 
     getAndDisplayBeerReviews: () => {
-
-        App.getBeerReviews(App.displayBeerReviews);
+         App.getBeerReviews(App.displayBeerReviews);
     }
-
 };
+
 $(function () {
     App.getAndDisplayBeerReviews();
     EventListeners.startListeners();
 });
-
 
 const HTMLRenderer = {
 
@@ -108,9 +121,12 @@ const EventListeners = {
     startListeners: function () {
         if (!this.listenersStarted) {
             this.reviewSubmit();
+            this.handleSignUpLink();
+            this.handleSignUpSubmit();
             this.listenersStarted = true;
         }
     },
+ // Submit new review 
     reviewSubmit: function () {
         $(".beer-form").submit(function (event) {
             event.preventDefault();
@@ -127,13 +143,9 @@ const EventListeners = {
             } else {
                 haveAnotherchecked = 'Nah';
             }
-
-
-
-            const newID = Math.random().toString(36).substr(2, 16);
-
-
-
+// Generate Review ID
+            const newPostID = Math.random().toString(36).substr(2, 16);
+// New Review Schema  
             const newBeerReview = {
                 beerName: beerInput,
                 breweryName: breweryInput,
@@ -141,12 +153,45 @@ const EventListeners = {
                 beerDescrip: beerDescriptionInput,
                 haveAnother: haveAnotherchecked,
                 user: 'user',
-                reviewID: newID
+                reviewID: newPostID
             };
             state.MOCK_REVIEWS.beerReviews.push(newBeerReview);
+            
+        });
+    },
+    
+    handleSignUpLink: function () {
+    $(".register-link").on("click", function () {
+        $(".form-signup-cont").removeClass("hidden");
+        
+       
+    });
+    },
 
+    // handleLoginLink: function () {
+
+    // },
+
+    handleSignUpSubmit: function () {
+        $(".form-signup").submit(function (event) {
+            event.preventDefault();  
+            const newUserName = $(this).find(".form-signup_username").val();
+            const newPassword = $(this).find(".form-signup_password").val();
+            const newUserID = Math.random().toString(36).substr(2, 16);
+
+            const newUser = {
+                id: newUserID,
+                username: newUserName,
+                password: newPassword
+            };
+            state.MOCK_USERS.push(newUser);
         });
     }
+
+    // handleLoginSubmit: function () {
+
+    // }
+
 };
 
 
@@ -194,7 +239,15 @@ const EventListeners = {
 // };
 
 
-
+// const newBeerReviews = {
+//     beerName: 'Heady Topper',
+//     breweryName: 'Alchemist',
+//     beerStyle: 'Double IPA',
+//     beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+//     haveAnother: 'Ill have another!',
+//     user: 'btan579',
+//     reviewID: ''
+// };
 
 
 // const HTMLRenderer = {
