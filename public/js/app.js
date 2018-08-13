@@ -79,7 +79,17 @@ let state = {
 };
 
 const App = {
-
+    signupUser: function(username, password) {
+        $.ajax({
+            method: "POST",
+            url: "/api/user/register",
+            contentType: "application/json",
+            data: JSON.stringify({username: username, password: password})
+        })
+        .done(function (result) {
+            HTMLRenderer.showSection
+        })
+    }
 
     getBeerReviews: (callbackFn) => {
         setTimeout(function () {
@@ -111,7 +121,13 @@ $(function () {
 });
 
 const HTMLRenderer = {
-
+ showSection: function (sectionToShow) {
+     const sections = [".landing", ".form-signup-cont", "form-login-cont", ".beer-review", ".home"];
+     sections.forEach(function (item, index) {
+         $(item).addClass("hidden");
+     });
+     $(sectionToShow).removeClass("hidden");
+ },
 
 };
 
@@ -123,6 +139,7 @@ const EventListeners = {
             this.reviewSubmit();
             this.handleSignUpLink();
             this.handleSignUpSubmit();
+            this.handleLoginLink();
             this.listenersStarted = true;
         }
     },
@@ -168,9 +185,11 @@ const EventListeners = {
     });
     },
 
-    // handleLoginLink: function () {
-
-    // },
+    handleLoginLink: function () {
+        $(".login-link").on("click", function (event) {
+            $(".form-login-cont").removeClass("hidden");
+        });
+    },
 
     handleSignUpSubmit: function () {
         $(".form-signup").submit(function (event) {
