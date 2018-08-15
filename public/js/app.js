@@ -87,9 +87,9 @@ const App = {
             data: JSON.stringify({username: username, password: password})
         })
         .done(function (result) {
-            HTMLRenderer.showSection
+            HTMLRenderer.showSection(".home");
         })
-    }
+    },
 
     getBeerReviews: (callbackFn) => {
         setTimeout(function () {
@@ -98,17 +98,7 @@ const App = {
 
     },
 // Display All Reviews   
-    displayBeerReviews: (data) => {
-        for (let i = 0; i < data.beerReviews.length; i++) {
-            $('.home').append('<p>' + data.beerReviews[i].beerName + '</p>');
-            $('.home').append('<p>' + data.beerReviews[i].breweryName + '</p>');
-            $('.home').append('<p>' + data.beerReviews[i].beerStyle + '</p>');
-            $('.home').append('<p>' + data.beerReviews[i].beerDescrip + '</p>');
-            $('.home').append('<p>' + data.beerReviews[i].haveAnother + '</p>');
-            $('.home').append('<p>' + data.beerReviews[i].user + '</p>');
-        }
-
-    },
+   
 
     getAndDisplayBeerReviews: () => {
          App.getBeerReviews(App.displayBeerReviews);
@@ -129,6 +119,18 @@ const HTMLRenderer = {
      $(sectionToShow).removeClass("hidden");
  },
 
+  displayBeerReviews: (data) => {
+      for (let i = 0; i < data.beerReviews.length; i++) {
+          $('.home').append('<p>' + data.beerReviews[i].beerName + '</p>');
+          $('.home').append('<p>' + data.beerReviews[i].breweryName + '</p>');
+          $('.home').append('<p>' + data.beerReviews[i].beerStyle + '</p>');
+          $('.home').append('<p>' + data.beerReviews[i].beerDescrip + '</p>');
+          $('.home').append('<p>' + data.beerReviews[i].haveAnother + '</p>');
+          $('.home').append('<p>' + data.beerReviews[i].user + '</p>');
+      }
+
+  }
+
 };
 
 const EventListeners = {
@@ -144,6 +146,14 @@ const EventListeners = {
         }
     },
  // Submit new review 
+
+    newReviewClick: function () {
+        $(".side-bar-button new-revew").on("click", function () {
+            event.preventDefault();
+            $(".beer-review").removeClass("hidden");
+            $(".home").addClass("hidden");
+        });
+    },
     reviewSubmit: function () {
         $(".beer-form").submit(function (event) {
             event.preventDefault();
@@ -173,21 +183,22 @@ const EventListeners = {
                 reviewID: newPostID
             };
             state.MOCK_REVIEWS.beerReviews.push(newBeerReview);
-            
+             $(".beer-review").addClass("hidden");
+             $(".home").removeClass("hidden");
         });
     },
     
     handleSignUpLink: function () {
-    $(".register-link").on("click", function () {
-        $(".form-signup-cont").removeClass("hidden");
-        
-       
-    });
+        $(".register-link").on("click", function () {
+            $(".form-signup-cont").removeClass("hidden");
+            $(".landing").addClass("hidden");
+        });
     },
 
     handleLoginLink: function () {
         $(".login-link").on("click", function (event) {
             $(".form-login-cont").removeClass("hidden");
+            $(".landing").addClass("hidden");
         });
     },
 
@@ -205,6 +216,9 @@ const EventListeners = {
             };
             state.MOCK_USERS.push(newUser);
         });
+        
+        $(".home").removeClass("hidden");
+        $(".form-signup-cont").addClass("hidden");
     }
 
     // handleLoginSubmit: function () {

@@ -5,7 +5,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-onst {
+const {
     router: usersRouter
 } = require('./users');
 const {
