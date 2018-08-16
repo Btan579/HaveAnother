@@ -79,22 +79,20 @@ let state = {
 };
 
 const App = {
-    signupUser: function(username, password) {
-        $.ajax({
-            method: "POST",
-            url: "/api/user/register",
-            contentType: "application/json",
-            data: JSON.stringify({username: username, password: password})
-        })
-        .done(function (result) {
-            HTMLRenderer.showSection(".home");
-        })
-    },
+    // signupUser: function(username, password) {
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "/api/user/register",
+    //         contentType: "application/json",
+    //         data: JSON.stringify({username: username, password: password})
+    //     })
+    //     .done(function (result) {
+    //         HTMLRenderer.showSection(".home");
+    //     })
+    // },
 
     getBeerReviews: (callbackFn) => {
-        setTimeout(function () {
-            callbackFn(state.MOCK_REVIEWS)
-        }, 1);
+        setTimeout(function(){ callbackFn(state.MOCK_REVIEWS)}, 1);
 
     },
 // Display All Reviews   
