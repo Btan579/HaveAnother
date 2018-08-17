@@ -20,24 +20,3 @@ describe("GET endpoint", function () {
     });
 });
 
-describe("sign up page", function () {
-    it("should exist", function () {
-        return chai
-            .request(app)
-            .get("/users.html")
-            .then(function (res) {
-                expect(res).to.have.status(200);
-            });
-    });
-});
-
-describe("review page", function () {
-    it("should exist", function () {
-        return chai
-            .request(app)
-            .get("/reviews.html")
-            .then(function (res) {
-                expect(res).to.have.status(200);
-            });
-    });
-});
