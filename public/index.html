@@ -22,11 +22,11 @@
     </header>
     <main role="main">
         <div class="column log-links">
-            <a href="#" class="login" hidden>Log in</a>
-            <a href="#" class="logout" hidden>Log out</a>
+            <a href="#" class="login-status hidden">Log in</a>
+            <a href="#" class="logout-status  hidden">Log out</a>
         </div>
-        <div class="column" hidden>
-            <section class="userinfo">
+        <div class="column" >
+            <section class="userinfo hidden">
                 <div class="row">
                     <div class="flex-column">
                         <h2 class="logged-in">Logged in:</h2>
@@ -47,7 +47,7 @@
         </div>
         <div class="row">
             <div class="column">
-                <div class="form-signup-cont hidden">
+                <div class="signup-cont hidden">
                     <form class="form-signup">
                         <div class="column">
                             <input type="text" class="form-signup_username" placeholder="username" required>
@@ -62,7 +62,7 @@
         </div>
         <div class="row">
             <div class="column">
-                <div class="form-login-cont hidden">
+                <div class="login-cont hidden">
                     <form class="form-login">
                         <div class="column">
                             <input type="text" class="form-login_username" placeholder="username" required>
@@ -96,7 +96,7 @@
                             <br/>
                             <input type="text" name="beer description" id="beer-description" />
                         </div>
-                        <div class- "have-another" name="have another">
+                        <div class="have-another" name="have another">
                             <input type="checkbox" name="one more" value="one more" id="have-another">I'll have another!
                             <br>
                             <input type="checkbox" name="no more" value="no more" id="not-another">Nah
@@ -104,21 +104,19 @@
                         </div>
                         <input type="submit" value="Submit">
                         <input type="button" class="cancel-review" value="Cancel">
-
-
-
                     </form>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="column">
-                <section class="home hidden">
+                <div class="home-cont hidden">
                     <h2>Beer Reviews!</h2>
                     <div class="side-bar-buttons">
                         <input type="button" class="side-bar-button new-review" value="New Review">
                     </div>
-                </section>
+                
+                </div>
             </div>
         </div>
     </main>
