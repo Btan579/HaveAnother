@@ -25,7 +25,7 @@
             <a href="#" class="login-status hidden">Log in</a>
             <a href="#" class="logout-status  hidden">Log out</a>
         </div>
-        <div class="column" >
+        <div class="column">
             <section class="userinfo hidden">
                 <div class="row">
                     <div class="flex-column">
@@ -79,31 +79,31 @@
         <div class="row">
             <div class="column">
                 <div class="beer-review hidden">
-                    <form class="beer-form">
+                    <form class="beer-form" id= "beer-form">
                         <div class="entry beer-name">Beer Name
                             <br/>
-                            <input id="beer-name" type="text" name="beer name" />
+                            <input id="beer-name" type="text" name="new-entry-form" required/>
                         </div>
                         <div class="entry brewery">Brewery
                             <br/>
-                            <input type="text" name="brewery" id="brewery" />
+                            <input type="text" name="new-entry-form" id="brewery" />
                         </div>
                         <div class="entry beer-style">Beer Style
                             <br/>
-                            <input type="text" name="beer-style" id="beer-style" />
+                            <input type="text" name="new-entry-form" id="beer-style" />
                         </div>
-                        <div class="beer-description" name="beer description">Beer Description
+                        <div class="beer-description" name="new-entry-form">Beer Description
                             <br/>
-                            <input type="text" name="beer description" id="beer-description" />
+                            <input type="text" name="new-entry-form" id="beer-description" />
                         </div>
                         <div class="have-another" name="have another">
-                            <input type="checkbox" name="one more" value="one more" id="have-another">I'll have another!
+                            <input type="checkbox" name="new-entry-form" value="one more" id="have-another">I'll have another!
                             <br>
-                            <input type="checkbox" name="no more" value="no more" id="not-another">Nah
+                            <input type="checkbox" name="new-entry-form" value="no more" id="not-another-radio">Nah
                             <br>
                         </div>
                         <input type="submit" value="Submit">
-                        <input type="button" class="cancel-review" value="Cancel">
+                        <input type="reset" class="cancel" value="Cancel">
                     </form>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                     <div class="side-bar-buttons">
                         <input type="button" class="side-bar-button new-review" value="New Review">
                     </div>
-                
+
                 </div>
             </div>
         </div>

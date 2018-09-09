@@ -7,6 +7,8 @@ const faker = require('faker');
 
 const expect = chai.expect;
 
+// const {Review} = require('../models');
+
 chai.use(chaiHttp);
 
 describe("GET endpoint", function () {

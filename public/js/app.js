@@ -98,6 +98,10 @@ const HTMLRenderer = {
             $('.home-cont').append('<h3>Reviewer</h3><p>' + data.beerReviews[i].user + '</p>');
         }
 
+    },
+
+    displayBeerStyle: (data) => {
+        
     }
 
 };
@@ -114,6 +118,7 @@ const EventListeners = {
             this.handleLoginLink();
             this.handleLoginSubmit();
             this.handleLogout();
+            this.reviewCancel();
             this.listenersStarted = true;
         }
     },
@@ -126,24 +131,27 @@ const EventListeners = {
             $(".home-cont").addClass("hidden");
         });
     },
+   
     reviewSubmit: function () {
         $(".beer-form").submit(function (event) {
             event.preventDefault();
+            // Obtain new beer form input
             const beerInput = $(this).find("#beer-name").val();
             const breweryInput = $(this).find("#brewery").val();
             const beerStyleInput = $(this).find("#beer-style").val();
             const beerDescriptionInput = $(this).find("#beer-description").val();
             const haveAnotherInput = $(this).find("#have-another").val();
-            const notHaveAnotherInput = $(this).find("#not-another").val();
-
-            let haveAnotherchecked;
-            if (haveAnotherInput.checked = true) {
+          
+             // check if user wants another 
+            if (haveAnotherInput.checked == true) {
                 haveAnotherchecked = "I'll Have another!";
             } else {
-                nothaveAnotherchecked = 'Nah';
+                haveAnotherchecked = 'Nah';
             }
+
             // Generate Review ID
             const newPostID = Math.random().toString(36).substr(2, 16);
+          
             // New Review Schema  
             const newBeerReview = {
                 beerName: beerInput,
@@ -154,13 +162,23 @@ const EventListeners = {
                 user: 'user',
                 reviewID: newPostID
             };
+            console.log(newBeerReview);
             state.MOCK_REVIEWS.beerReviews.push(newBeerReview);
             $(".beer-review").addClass("hidden");
             $(".home-cont").removeClass("hidden");
             App.getAndDisplayBeerReviews();
+            $("#beer-form").trigger('reset');
             
         });
         
+    },
+
+    reviewCancel: function () {
+        $(".cancel").on("click", function () {
+             $(".beer-review").addClass("hidden");
+             $(".home-cont").removeClass("hidden");
+        });
+
     },
 
     handleSignUpLink: function () {
