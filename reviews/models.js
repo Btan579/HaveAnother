@@ -6,14 +6,16 @@ mongoose.Promise = global.Promise;
 const styleSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
 const categorySchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 

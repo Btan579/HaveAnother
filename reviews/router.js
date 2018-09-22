@@ -32,10 +32,50 @@ router.get("/styles/:id", (req, res) => {
         .catch(err => {
             console.error(err);
             res.status(500).json({
-                error: 'something went horribly awry'
-            });
+                error: 'something went horribly awry'});
         });
 });
+
+router.post('/styles', (req, res) => {
+    const requiredFields = ['name'];
+    requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+        const message = `Missing \`${field}\` in request body`;
+        console.error(message);
+        return res.status(400).send(message);
+      }
+    });
+    
+    Style
+        .findOne({ name: req.body.name})
+        .then(style => {
+            if (style) {  
+                const message = `Style already exists`;
+                console.error(message);
+                return res.status(400).send(message);
+            }
+            else {
+                Style
+                    .create({
+                        name: req.body.name
+                    })
+                    .then(style => res.status(201).json({
+                        _id: style.id,
+                        name: style.name
+                    }))
+                    .catch(err => {
+                        console.error(err);
+                        res.status(500).json({error: 'something went awry'});
+                    });
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({error: 'something went horribly awry'});
+        });
+});
+
+
 
 router.get('/categorys', (req, res) => {
     Category
@@ -58,6 +98,49 @@ router.get("/categorys/:id", (req, res) => {
             res.json({
                 name: category.name
             });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                error: 'something went horribly awry'});
+        });
+});
+
+router.post('/categorys', (req, res) => {
+    const requiredFields = ["name"];
+    requiredFields.forEach(field => {
+        if (!(field in req.body)) {
+            const message = `Missing \`${field}\` in request body`;
+            console.error(message);
+            return res.status(400).send(message);
+        }
+    });
+
+    Category
+        .findOne({
+            name: req.body.name
+        })
+        .then(category => {
+            if (category) {
+                const message = `Category already exists`;
+                console.error(message);
+                return res.status(400).send(message);
+            } else {
+                Category
+                    .create({
+                        name: req.body.name
+                    })
+                    .then(category => res.status(201).json({
+                        _id: category.id,
+                        name: category.name
+                    }))
+                    .catch(err => {
+                        console.error(err);
+                        res.status(500).json({
+                            error: 'something went awry'
+                        });
+                    });
+            }
         })
         .catch(err => {
             console.error(err);
@@ -102,5 +185,21 @@ router.get("/:id", (req, res) => {
             res.status(500).json({error: 'something went horribly awry'});
     });
 });
+
+router.delete('/:id', (req, res) => {
+    Review
+        .findByIdAndRemove(req.params.id)
+        .then(() => {
+            console.log(`Deleted review with id \`${req.params.id}\``);
+            res.status(204).end();
+        });
+});
+
+router.use('*', function (req, res) {
+    res.status(404).json({
+        message: 'Not Found'
+    });
+});
+
 
 module.exports = { router };
