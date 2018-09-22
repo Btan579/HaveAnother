@@ -1,110 +1,40 @@
 let state = {
-    MOCK_REVIEWS: {
-        'beerReviews': [{
-                beerName: 'Heady Topper',
-                breweryName: 'Alchemist',
-                beerStyle: 'Double IPA',
-                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                haveAnother: 'Ill have another!',
-                user: 'btan579',
-                reviewID: 111
-            },
-            {
-                beerName: 'IPA',
-                breweryName: 'Harpoon',
-                beerStyle: 'IPA',
-                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                haveAnother: 'Ill have another!',
-                user: 'brian79',
-                reviewID: 1112
-            },
-            {
-                beerName: 'Boston Lager',
-                breweryName: 'Sam Adams',
-                beerStyle: 'Lager',
-                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                haveAnother: 'Ill have another!',
-                user: 'btan579',
-                reviewID: 1113
-            }, {
-                beerName: 'Alter Ego',
-                breweryName: 'Tree house',
-                beerStyle: 'American IPA',
-                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                haveAnother: 'Ill have another!',
-                user: 'paul9',
-                reviewID: 1114
-            },
-            {
-                beerName: 'Sip of Sunshine ',
-                breweryName: 'Lawsons Finest',
-                beerStyle: 'IPA',
-                beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                haveAnother: 'Nah',
-                user: 'mom',
-                reviewID: 1115
-            }
-        ]
-    },
-
-    MOCK_USERS: [
-        {
-            id: "111",
-            username: 'btan579',
-            password: 'password1'
-        },
-        {
-            id: "222",
-            username: 'brian79',
-            password: 'password2'
-        },
-        {
-            id: "333",
-            username: 'paul9',
-            password: 'password3'
-        },
-        {
-            id: "444",
-            username: 'mom1',
-            password: 'password4'
-        },
-        {
-            id: "555",
-            username: 'beerfan1',
-            password: 'password5'
-        }
-    ],
-
+    
     reviews: {}
 };
 
 
 const HTMLRenderer = {
     showSection: function (sectionToShow) {
-        const sections = [".landing", ".form-signup-cont", "form-login-cont", ".beer-review", ".home-cont"];
+        const sections = [".logged-status", ".submit-form", ".filtered-reviews", ".home-cont"];
         sections.forEach(function (item, index) {
             $(item).addClass("hidden");
         });
         $(sectionToShow).removeClass("hidden");
 
     },
-    displayBeerReviews: (data) => {
-        for (let i = 0; i < data.beerReviews.length; i++) {
-            $('.home-cont').append('<h3>Beer name</h3><p>' + data.beerReviews[i].beerName + '</p>');
-            $('.home-cont').append('<h3>Brewery</h3><p>' + data.beerReviews[i].breweryName + '</p>');
-            $('.home-cont').append('<h3>Style</h3><p>' + data.beerReviews[i].beerStyle + '</p>');
-            $('.home-cont').append('<h3>Brief description</h3><p>' + data.beerReviews[i].beerDescrip + '</p>');
-            $('.home-cont').append('<h3>Have another?</h3><p>' + data.beerReviews[i].haveAnother + '</p>');
-            $('.home-cont').append('<h3>Reviewer</h3><p>' + data.beerReviews[i].user + '</p>');
+    
+    displayAllReviews: (data) => {
+        let allReviews = [];
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+            $('.filtered-reviews').append('<div class="container"><div class="row"><div class="col-md-5 col-md-offset-6"><div class="filtered-review"><h6>Beer name:</h6><p>' + MOCK_REVIEWS[i].beerName +
+                '</p><h6>Brewery:</h6><p>' + data[i].breweryName +
+                '</p><h6>Style:</h6><p>' + data[i].beerStyle +
+                '</p><h6>Description:</h6><p>' + data[i].beerDescrip +
+                '</p><h6>have another: </h6><p>' + data[i].haveAnother +
+                '</p><h6>Reviewer:</h6><p>' + data[i].user + '</p></div></div></div></div>')
+
         }
-
-    },
-
-    displayBeerStyle: (data) => {
-        
+        console.log(data);
     }
 
+    // displayBeerStyle: (data) => {
+
+    // }
+
 };
+
 
 const EventListeners = {
     listenersStarted: false,
@@ -113,45 +43,71 @@ const EventListeners = {
         if (!this.listenersStarted) {
             this.newReviewClick();
             this.reviewSubmit();
-            this.handleSignUpLink();
-            this.handleSignUpSubmit();
-            this.handleLoginLink();
-            this.handleLoginSubmit();
-            this.handleLogout();
             this.reviewCancel();
+            this.handleSignUpSubmit();
+            this.handleLoginSubmit();
+            this.handleSignUpLink();
+            this.handleLoginLink();
+            this.handleLogout();
+            this.loginCancel();
+            this.signupCancel();
+            this.beerStyleSelect();
             this.listenersStarted = true;
         }
+    },
+
+
+
+    handleSignUpLink: function () {
+        $(".register-link").on("click", function (event) {
+            $(".page-heading").removeClass("hidden");
+            $(".home-main").addClass("hidden");
+            $(".signup-cont").removeClass("hidden");
+
+
+
+        });
+    },
+
+    handleLoginLink: function () {
+        $(".login-link").on("click", function (event) {
+            $(".page-heading").removeClass("hidden");
+            $(".home-main").addClass("hidden");
+            $(".login-cont").removeClass("hidden");
+
+        });
     },
     // Submit new review 
 
     newReviewClick: function () {
-        $(".new-review").on("click", function () {
+        $(".new-Review").on("click", function () {
             event.preventDefault();
-            $(".beer-review").removeClass("hidden");
-            $(".home-cont").addClass("hidden");
+            console.log("clicked");
+            $(".submit-form").removeClass("hidden");
         });
     },
-   
+
     reviewSubmit: function () {
-        $(".beer-form").submit(function (event) {
+        $("#form-submit").submit(function (event) {
             event.preventDefault();
-            // Obtain new beer form input
             const beerInput = $(this).find("#beer-name").val();
             const breweryInput = $(this).find("#brewery").val();
             const beerStyleInput = $(this).find("#beer-style").val();
             const beerDescriptionInput = $(this).find("#beer-description").val();
             const haveAnotherInput = $(this).find("#have-another").val();
-          
-             // check if user wants another 
-            if (haveAnotherInput.checked == true) {
+            const notHaveAnotherInput = $(this).find("#not-another").val();
+
+            console.log(haveAnotherInput.checked = true);
+            console.log(notHaveAnotherInput);
+            // let haveAnotherchecked;
+
+            if (haveAnotherInput.checked = true) {
                 haveAnotherchecked = "I'll Have another!";
             } else {
-                haveAnotherchecked = 'Nah';
+                haveAnotherchecked = "Nah";
             }
-
             // Generate Review ID
-            const newPostID = Math.random().toString(36).substr(2, 16);
-          
+            // const newPostID = Math.random().toString(36).substr(2, 16);
             // New Review Schema  
             const newBeerReview = {
                 beerName: beerInput,
@@ -159,48 +115,56 @@ const EventListeners = {
                 beerStyle: beerStyleInput,
                 beerDescrip: beerDescriptionInput,
                 haveAnother: haveAnotherchecked,
-                user: 'user',
-                reviewID: newPostID
-            };
-            console.log(newBeerReview);
-            state.MOCK_REVIEWS.beerReviews.push(newBeerReview);
-            $(".beer-review").addClass("hidden");
-            $(".home-cont").removeClass("hidden");
+                user: 'user'
+             };
+
+            MOCK_REVIEWS.push(newBeerReview);
+            $(".submit-form").addClass("hidden");
             App.getAndDisplayBeerReviews();
-            $("#beer-form").trigger('reset');
-            
+            $("#form-submit").trigger('reset');
+
+            console.log(beerInput, breweryInput, beerStyleInput, beerDescriptionInput, haveAnotherchecked);
+            console.log(MOCK_REVIEWS);
         });
-        
+
     },
 
     reviewCancel: function () {
         $(".cancel").on("click", function () {
-             $(".beer-review").addClass("hidden");
-             $(".home-cont").removeClass("hidden");
+            $(".submit-form").addClass("hidden");
+
         });
 
     },
 
-    handleSignUpLink: function () {
-        $(".register-link").on("click", function () {
-            $(".signup-cont").removeClass("hidden");
-           
-            
+    signupCancel: function () {
+        $("#cancel-signup").on("click", function () {
+            $(".home-main").removeClass("hidden");
+            $(".page-heading").addClass("hidden");
+            $(".signup-cont").addClass("hidden");
+            $("#form-signup").trigger('reset');
         });
+
     },
 
-    handleLoginLink: function () {
-        $(".login-link").on("click", function (event) {
-            $(".login-cont").removeClass("hidden");
-            $(".landing").addClass("hidden");
+    loginCancel: function () {
+        $("#cancel-login").on("click", function () {
+            $(".page-heading").addClass("hidden");
+            $(".home-main").removeClass("hidden");
+            $(".login-cont").addClass("hidden");
+            $("#form-login").trigger('reset');
+
         });
+
     },
 
     handleSignUpSubmit: function () {
-        $(".form-signup").submit(function (event) {
+        $("#form-signup").submit(function (event) {
             event.preventDefault();
-            const newUserName = $(this).find(".form-signup_username").val();
-            const newPassword = $(this).find(".form-signup_password").val();
+            console.log("registering user");
+
+            const newUserName = $(this).find("#user-name").val();
+            const newPassword = $(this).find("#password").val();
             const newUserID = Math.random().toString(36).substr(2, 16);
 
             const newUser = {
@@ -208,43 +172,79 @@ const EventListeners = {
                 username: newUserName,
                 password: newPassword
             };
-            state.MOCK_USERS.push(newUser);
 
-
-            $(".home-cont").removeClass("hidden");
+            MOCK_USERS.push(newUser);
+            console.log(newUser);
+            console.log(MOCK_USERS);
+            $(".page-heading").addClass("hidden");
             $(".signup-cont").addClass("hidden");
-            $(".landing").addClass("hidden");
-            $(".userinfo").removeClass("hidden");
-            $(".logout-status").removeClass("hidden");
+            $(".home-main").removeClass("hidden");
+            $(".home-cont").removeClass("hidden");
+            $(".signLog").addClass("hidden");
+            $(".logged-status").removeClass("hidden");
+            $("#form-signup").trigger('reset');
+
         });
- },
+
+
+    },
 
     handleLoginSubmit: function () {
-        $(".form-login").submit(function (event) {
+        $("#form-login").submit(function (event) {
             event.preventDefault();
+            const loginUserName = $(this).find("#user-name").val();
+            const loginPassword = $(this).find("#password").val();
+
+            console.log(loginUserName, loginPassword);
             console.log("loggin in user");
             $(".home-cont").removeClass("hidden");
+            $(".page-heading").addClass("hidden");
+            $(".home-main").removeClass("hidden");
             $(".login-cont").addClass("hidden");
-            $(".userinfo").removeClass("hidden");
-            $(".logout-status").removeClass("hidden");
+            $(".signLog").addClass("hidden");
+            $(".logged-status").removeClass("hidden");
+            $("#form-login").trigger('reset');
+        });
+
+
+    },
+
+    handleLogout: function () {
+        $(".logout-status").on("click", function (event) {
+            console.log("logging out user");
+            $(".signLog").removeClass("hidden");
+
         });
     },
 
-    handleHeaderLinkClicked: function () {
-            $(".welcome-link").on("click", function (event) {
-                App.reset();
-            });
-        },
-    handleLogout: function () {
-        $(".logoout").on("click", function (event) {
-            console.log("logging out user");
-
-        });
+    beerStyleSelect: function () {
+        
+        $('#beerDropdown').change(function () {
+            
+            let selectedStyle = $('#filter-review-select option:selected').val();
+            console.log("selected beer style" + selectedStyle);
+            // $('filtered-reviews').html('');
+            $.getJSON('js/reviews.js', getSelectedStyle);
+            function getSelectedStyle(data) {
+                let selectEntries = [];
+                console.log(data);
+                if (data) {
+                    data.forEach(function(item) {
+                        if (item.beerStyle === selectedStyle) {
+                            selectEntries.push(item);
+                        }
+                    });
+                };
+                HTMLRenderer.displayAllReviews(selectEntries);
+            }
+        }); 
+        
     }
 
-};
 
 
+
+}
 
 const App = {
     // signupUser: function(username, password) {
@@ -259,390 +259,64 @@ const App = {
     //     })
     // },
 
-    getBeerReviews: (callbackFn) => {
-        setTimeout(function(){ callbackFn(state.MOCK_REVIEWS)}, 1);
+    getAllReviews: (callbackFn) => {
+        let reviewData = [];
+        setTimeout(function () {
+            callbackFn(MOCK_REVIEWS)
+        }, 1);
 
     },
-// Display All Reviews   
-   
 
-    getAndDisplayBeerReviews: () => {
-        App.getBeerReviews(HTMLRenderer.displayBeerReviews);
+    // Display All Reviews   
+
+
+    getAndDisplayAllReviews: () => {
+        App.getAllReviews(HTMLRenderer.displayAllReviews);
+        
+        
     },
 
     reset: function () {
-    
+
         EventListeners.startListeners();
         HTMLRenderer.showSection(".landing");
-        
-    }
+
+    },
+
+    generateBeerDrop: function () {
+        $('#beerDropdown').load('js/beer-style-drop-items.html');
+        $('#beer-style').load('js/beer-styles-new-reviews.html');
+
+    },
+
+  
+
+    // filterBeerStyles: function () {
+    // $('#beerDropdown').change(function () {
+    //     let selectedStyle = $('#filter-review-select option:selected').val();
+    //     console.log("selected beer style" + selectedStyle);
+    //     // $('filtered-reviews').html('');
+    //     $.getJSON('js/reviews.js/?beerStyle=IPA', getSelectedStyle);
+    //     function getSelectedStyle(data) {
+    //         HTMLRenderer.displayAllReviews(data);
+    //     }
+    // });
+
+    // }
+    
 };
 
 // $(App.reset());
 
 $(function () {
-    App.getAndDisplayBeerReviews();
+    App.getAndDisplayAllReviews();
+    App.generateBeerDrop();
+    // App.filterBeerStyles();
     EventListeners.startListeners();
-    HTMLRenderer.showSection(".landing");
     
-    
+    // HTMLRenderer.showSection(".landing");
+
+
 });
 
 
-
-
-// const App = {
-
-//     // reviews: {},
-
-//     // getBeerReviews: (callbackFn) => {
-//     //     setTimeout(function(){ callbackFn(MOCK_REVIEWS)}, 1);
-
-//     // },
-
-//     // displayBeerReviews: data => {
-//     //          for (index in data.beerReviews) {
-//     //              $('.home').append('<p>' + data.beerReviews[index] + '</p>');
-//     //          }
-
-//     // },
-
-//     // getAndDisplayBeerReviews: () => {
-
-//     //     getBeerReviews(displayBeerReviews);
-//     // },
-
-
-
-//     // createReview: () => {
-
-//     //     let newReview = `
-//     //     ${newBeerReviews.beerName}
-//     //     ${newBeerReviews.breweryName}
-//     //     ${newBeerReviews.beerStyle}
-//     //      ${newBeerReviews.beerDescrip}
-//     //      ${newBeerReviews.user}
-//     //    `;
-
-//     //     App.reviews.push(newReview);
-//     //     return newReview;
-
-
-//     // },
-
-
-
-// };
-
-
-// const newBeerReviews = {
-//     beerName: 'Heady Topper',
-//     breweryName: 'Alchemist',
-//     beerStyle: 'Double IPA',
-//     beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//     haveAnother: 'Ill have another!',
-//     user: 'btan579',
-//     reviewID: ''
-// };
-
-
-// const HTMLRenderer = {
-
-
-// };
-
-// const EventListeners = {
-
-// };
-
-
-
-
-
-//  currentUser: {},
-
-
-//  signUpUser: function (username, password) {
-//      MOCK_NEW_USERS.push({
-//              username: username,
-//              password: password
-//          })
-//          .done(function (result) {
-//              HTMLRenderer.showSection(".form-login");
-//          })
-//          .fail(function () {
-//              HTMLRenderer.showAlert(".alert-signup");
-//          })
-//  },
-
-//  loginUser: function (username, password) {
-//      MOCK_USERS.push({
-//              username: username,
-//              password: password
-//          })
-//          .done(function (result) {
-//              const {
-//                  authToken
-//              } = result;
-//              localStorage.setItem("token", authToken);
-//              App.currentUser = username;
-//              HTMLRenderer.displayUserInfo(App.currentUser);
-//              HTMLRenderer.showSpecificElement(".logout");
-//              HTMLRenderer.hideSpecificElement(".form-login");
-//              HTMLRenderer.showElement(".logged-in");
-//              HTMLRenderer.hideElement(".login");
-//              HTMLRenderer.showElement(".logout");
-//          })
-//          .fail(function () {
-//              HTMLRenderer.showError("Incorrect username/password")
-//          });
-//  },
-
-//  logoutUser: function () {
-//      localStorage.removeItem("token");
-//  }
-
-
-
-// User Sign up page
-// User enters valid username/password
-
-// User enters valid username but no password
-
-// User enters no username or password
-
-// User enters password but no username
-
-// User enters username already in use
-
-// User enters username less than 5 characters
-
-// User enters password less than 5 characters
-
-//  signUpUser: function (username, password) {
-//      $.ajax({
-//          method: "POST",
-//          url: "/api/auth/signup",
-//          contentType: "application/json",
-//          data: JSON.stringify({
-//              username: username,
-//              password: password
-//          })
-//      })
-//      .done(function (result) {
-//          showSection(".form-login");
-//          })
-//      .fail(function () {
-//          showAlert(".alert-signup");
-//          });
-//  },
-
-
-// Login page
-
-// User enters valid username/password
-
-// User enters invalid username/password
-
-// User no username/password
-
-// User enters valid username/ no password
-
-// User enters no username/valid password
-// loginUser: function(username, password) {
-//     $.ajax({
-//         method: "POST",
-//         url: "/api/auth/login",
-//         contentType: "application/json",
-//         data: JSON.stringify({
-//             username: username,
-//             password: password
-//         })
-//     })
-//     .done(function (result) {
-//             HTMLRenderer.showSectidasdon(".form-login");
-//         })
-//         .fail(function () {
-//             HTMLRenderer.showError("Incorrect username/password");
-//         });
-// }
-
-
-
-
-
-
-
-
-
-
-
-// var MOCK_USER_SCHEMA = {
-//     'users': [{
-//             username: 'btan579',
-//             userPassword: 'password1'
-//         },
-//         {
-//             username: 'brian79',
-//             userPassword: 'password2'
-//         },
-//         {
-//             username: 'paul9',
-//             userPassword: 'password3'
-//         },
-//         {
-//             username: 'mom',
-//             userPassword: 'password4'
-//         }
-//     ]
-// };
-
-// function getUsers(callbackFn) {
-//     setTimeout(function(){  callbackFn(MOCK_USER_SCHEMA)}, 2);
-// }
-
-// function display userNamesTaken(data) {
-//      for (index in data.users) {
-//          $('body').append(
-//              '<p>' + data.users[index].username + '</p>');
-//      }
-// }
-
-
-// // Get and Display reviews
-// var MOCK_REVIEW_SCHEMA = {
-//     'beerReviews': [{
-//             beerName: 'Heady Topper',
-//             breweryName: 'Alchemist',
-//             beerStyle: 'Double IPA',
-//             beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//             haveAnother: 'Ill have another!',
-//             user: 'btan579',
-//             reviewID: 111
-//         },
-//         {
-//             beerName: 'IPA',
-//             breweryName: 'Harpoon',
-//             beerStyle: 'IPA',
-//             beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//             haveAnother: 'Ill have another!',
-//             user: 'brian79',
-//             reviewID: 1112
-//         },
-//         {
-//             beerName: 'Boston Lager',
-//             breweryName: 'Sam Adams',
-//             beerStyle: 'Lager',
-//             beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//             haveAnother: 'Ill have another!',
-//             user: 'btan579',
-//             reviewID: 1113
-//         }, {
-//             beerName: 'Alter Ego',
-//             breweryName: 'Tree house',
-//             beerStyle: 'American IPA',
-//             beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//             haveAnother: 'Ill have another!',
-//             user: 'paul9',
-//             reviewID: 1114
-//         },
-//         {
-//             beerName: 'Sip of Sunshine ',
-//             breweryName: 'Lawsons Finest',
-//             beerStyle: 'IPA',
-//             beerDescrip: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//             haveAnother: 'Nah',
-//             user: 'mom',
-//             reviewID: 1115
-//         }
-//     ]
-// };
-
-
-// function getBeerReviews(callbackFn) {
-//     setTimeout(function () {
-//         callbackFn(MOCK_REVIEW_SCHEMA)
-//     }, 1);
-// }
-
-// function displayBeerReviews(data) {
-//     for (index in data.beerReviews) {
-//         $('body').append('<p>' + data.beerReviews[index].user + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].beerName + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].breweryName + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].beerStyle + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].beerDescrip + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].haveAnother + '</p>');
-//         $('body').append('<p>' + data.beerReviews[index].user + '</p>');
-
-//     }
-// }
-
-// function getAndDisplayBeerReviews() {
-//     getBeerReviews(displayBeerReviews);
-
-// }
-
-// $(function () {
-//     getAndDisplayBeerReviews();
-
-// })
-
-
-
-
-// var MOCK_BEER_STYLE = {
-//     'beer styles': [
-
-//     ]
-// }
-
-
-// // // Create user DB
-
-
-
-// // var userSchema = {
-// //     "type": "object",
-// //     "properties": {
-// //         "users": {
-// //             "type": "array",
-// //             "minItems": 3,
-// //             "maxItems": 10,
-// //             "items": {
-// //                 "type": "object",
-// //                 "properties": {
-// //                     "id": {
-// //                         "type": "number",
-// //                         "unique": true,
-// //                         "minimum": 1
-// //                     },
-// //                     "username": {
-// //                         "type": "string",
-// //                         "unique": true,
-// //                         "faker": "internet.username"
-// //                     },
-// //                     "userPassword": {
-// //                         "type": "string",
-// //                         "faker": "internet.password"
-
-// //                 }
-// //             },
-// //                 "required": ["id", "username", "userPassword", "email"]
-// //             }
-// //         }
-// //     },
-// //     "required": ["users"]
-// // };
-
-// // function
-
-// // module.exports = schema;
-
-// // var USER_SCHEMA = {
-// //         "username": {
-// //             type: 'string',
-// //             unique: true
-// //         },
-// //         "userPassword": 'string'
-// //     };
