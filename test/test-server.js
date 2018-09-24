@@ -2,33 +2,29 @@
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const app = require("../server.js");
+const mongoose = require('mongoose');
 
-const expect = chai.expect;
+const { app, runServer, closeServer } = require('../server.js');
+
+const { TEST_DATABASE_URL } = require('../config');
+
+const should = chai.should();
+
 
 chai.use(chaiHttp);
 
-describe("index page", function () {
-    it("should exist", function () {
-        return chai
-            .request(app)
+describe("GET endpoint", function () {
+    it("should return all reviews", function () {
+        return chai.request(app)
             .get("/")
             .then(function (res) {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
+                res.should.be.html;
             });
     });
 });
 
-
-
-
-
-
-
-
-
-
-// "use strict";
+// "use strict";npmpmnpm
 
 // const chai = require("chai");
 // const chaiHttp = require("chai-http");

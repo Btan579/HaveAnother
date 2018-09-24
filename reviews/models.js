@@ -49,7 +49,7 @@ const reviewSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    user: {
+    user: { 
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }
 });
@@ -65,6 +65,7 @@ const userSchema = mongoose.Schema({
         required: true
     }
 });
+
 
 reviewSchema.virtual('author').get(function() {
  return `${this.user.userName}`;

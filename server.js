@@ -7,6 +7,7 @@ const morgan = require("morgan");
 
 const { router: reviewsRouter } = require("./reviews/router");
 
+
 const app = express();
 
 app.use(express.static("public"));
@@ -14,6 +15,7 @@ app.use(morgan("common"));
 app.use(express.json());
 
 app.use("/reviews/", reviewsRouter);
+
 
 const {PORT, DATABASE_URL} = require("./config");
 
