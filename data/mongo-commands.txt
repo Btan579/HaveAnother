@@ -1,0 +1,15 @@
+mongoexport --db have-another --collection beers --out beers.json
+mongoexport --db have-another --collection categorys --out categorys.json
+mongoexport --db have-another --collection reviews --out reviews.json
+mongoexport --db have-another --collection styles --out styles.json
+mongoexport --db have-another --collection users --out users.json
+
+production db
+
+mongoimport -h ds015720.mlab.com:15720 -d have-another -c beers -u btan579 -p btan579 --file C:\Users\btan\Projects\HaveAnother\data\beers.json
+mongoimport -h ds015720.mlab.com:15720 -d have-another -c categorys -u btan579 -p btan579 --file C:\Users\btan\Projects\HaveAnother\data\categorys.json
+mongoimport -h ds015720.mlab.com:15720 -d have-another -c reviews -u btan579 -p btan579 --file C:\Users\btan\Projects\HaveAnother\data\reviews.json
+mongoimport -h ds015720.mlab.com:15720 -d have-another -c styles -u btan579 -p btan579 --file C:\Users\btan\Projects\HaveAnother\data\styles.json
+mongoimport -h ds015720.mlab.com:15720 -d have-another -c users -u btan579 -p btan579 --file C:\Users\btan\Projects\HaveAnother\data\users.json
+
+dev db

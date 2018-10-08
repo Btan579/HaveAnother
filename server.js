@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 const morgan = require("morgan");
 
 const { router: reviewsRouter } = require("./reviews/router");
-
+const { router: usersRouter } = require("./users/router");
+const { router: beersRouter } = require("./beers/router");
+const { router: stylesRouter } = require("./styles/router");
+const { router: categoriesRouter } = require("./categories/router");
 
 const app = express();
 
@@ -15,6 +18,10 @@ app.use(morgan("common"));
 app.use(express.json());
 
 app.use("/reviews/", reviewsRouter);
+app.use("/users/", usersRouter);
+app.use("/beers/", beersRouter);
+app.use("/styles/", stylesRouter);
+app.use("/categories/", categoriesRouter);
 
 
 const {PORT, DATABASE_URL} = require("./config");

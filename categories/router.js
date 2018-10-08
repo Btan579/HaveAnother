@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const { User } = require("./models");
-const { Style } = require("../styles/models");
-const { Beer } = require("../beers/models");
-const { Review } = require("../reviews/models");
-const { Category } = require('../categories/models');
+const { Category } = require("./models");
+const { User } = require('../users/models');
+const { Beer } = require('../beers/models');
+const { Style } = require('../styles/models');
+const { Review } = require('../reviews/models');
 
 
 const mongoose = require("mongoose");
@@ -18,28 +18,38 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => {
-    User
+    Category
         .find()
-        .then(users => {
-            console.log(users);
-            res.json(users.map(user => {
-                return {
-                    id: user._id,
-                    userName: user.userName,
-                    password: user.password
-                };
-            }));
+        .then(categorys => {
+            console.log(categorys);
+            res.json({
+                categorys: categorys
+            });
+        }).
+    catch(err => {
+        if (err) return console.error(err);
+    });
+});
+
+router.get("/:id", (req, res) => {
+    Style
+        .findById(req.params.id)
+        .then(category => {
+            res.json({
+                _id: category._id,
+                name: category.name
+            });
         })
         .catch(err => {
             console.error(err);
             res.status(500).json({
-                error: 'something went terribly wrong'
+                error: 'something went horribly awry'
             });
         });
 });
 
 router.post('/', (req, res) => {
-    const requiredFields = ['userName', 'password'];
+    const requiredFields = ["name"];
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
             const message = `Missing \`${field}\` in request body`;
@@ -48,30 +58,29 @@ router.post('/', (req, res) => {
         }
     });
 
-    User
+
+    Category
         .findOne({
-            userName: req.body.userName
+            name: req.body.name
         })
-        .then(user => {
-            if (user) {
-                const message = `Username already taken`;
+        .then(category => {
+            if (category) {
+                const message = `Category already exists`;
                 console.error(message);
                 return res.status(400).send(message);
             } else {
-                User
+                Category
                     .create({
-                        userName: req.body.userName,
-                        password: req.body.password
+                        name: req.body.name
                     })
-                    .then(user => res.status(201).json({
-                        _id: user._id,
-                        userName: user.userName,
-                        password: user.password
+                    .then(category => res.status(201).json({
+                        _id: category._id,
+                        name: category.name
                     }))
                     .catch(err => {
                         console.error(err);
                         res.status(500).json({
-                            error: 'Something went wrong'
+                            error: 'something went awry'
                         });
                     });
             }
@@ -83,6 +92,8 @@ router.post('/', (req, res) => {
             });
         });
 });
+
+
 
 router.use('*', function (req, res) {
     res.status(404).json({

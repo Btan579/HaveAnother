@@ -1,42 +1,5 @@
-[
-    {
-    "beerName": "Heady Topper",
-    "breweryName": "Alchemist",
-    "beerStyle": "Double India Pale Ale",
-    "beerDescrip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "haveAnother": "Ill have another!",
-    "userName": "btan579"
-},
-{
-    "beerName": "IPA",
-    "breweryName": "Harpoon",
-    "beerStyle": "India Pale Ale",
-    "beerDescrip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "haveAnother": "Ill have another!",
-    "userName": "btan579"
-},
-{
-    "beerName": "Boston Lager",
-    "breweryName": "Sam Adams",
-    "beerStyle": "Lager",
-    "beerDescrip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "haveAnother": "Ill have another!",
-    "userName": "btan579"
-},
-{
-    "beerName": "Alter Ego",
-    "breweryName": "Tree house",
-    "beerStyle": "American India Pale Ale",
-    "beerDescrip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "haveAnother": "Ill have another!",
-    "userName": "btan579"
-},
-{
-    "beerName": "Sip of Sunshine ",
-    "breweryName": "Lawsons Finest",
-    "beerStyle": "India Pale Ale",
-    "beerDescrip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "haveAnother": "Nah",
-    "userName": "btan579"
-}
-]
+{"_id":{"$oid":"5ba7273a424e974a5cbfdf7f"},"beer":{"$oid":"5ba71e0f45d1a30868ad3d09"},"comment":"This is not wicked","haveAnother":false,"__v":0}
+{"_id":{"$oid":"5ba86815e1b7a947c409a263"},"beer":{"$oid":"5ba865d5e1b7a947c409a25f"},"comment":"This is neat","haveAnother":true,"__v":0}
+{"_id":{"$oid":"5ba86841e1b7a947c409a264"},"beer":{"$oid":"5ba866e0e1b7a947c409a260"},"comment":"This is the neatest beer","haveAnother":true,"__v":0}
+{"_id":{"$oid":"5ba86863e1b7a947c409a265"},"beer":{"$oid":"5ba86756e1b7a947c409a261"},"comment":"Tree house does it again","haveAnother":true,"__v":0}
+{"_id":{"$oid":"5ba8688ee1b7a947c409a266"},"beer":{"$oid":"5ba867b2e1b7a947c409a262"},"comment":"Warm citrus","haveAnother":true,"__v":0}

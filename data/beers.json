@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5ba71e0f45d1a30868ad3d09"},"reviews":[],"name":"Heady Topper","breweryName":"Alchemist","category":{"$oid":"5ba6d4080812ed470102ab23"},"style":{"$oid":"5ba705a9ac95c72aa4e0ec58"},"__v":0}
+{"_id":{"$oid":"5ba865d5e1b7a947c409a25f"},"reviews":[],"name":"India Pale Ale","breweryName":"Harpoon","category":{"$oid":"5ba6d4080812ed470102ab42"},"style":{"$oid":"5ba6c6a97deaad1410cb5606"},"__v":0}
+{"_id":{"$oid":"5ba866e0e1b7a947c409a260"},"reviews":[],"name":"Boston Lager","breweryName":"Sam Adams","category":{"$oid":"5ba6d4080812ed470102ab49"},"style":{"$oid":"5ba6c6a97deaad1410cb5606"},"__v":0}
+{"_id":{"$oid":"5ba86756e1b7a947c409a261"},"reviews":[],"name":"Alter Ego","breweryName":"Tree house","category":{"$oid":"5ba6d4080812ed470102ab42"},"style":{"$oid":"5ba6c5637deaad1410cb55f2"},"__v":0}
+{"_id":{"$oid":"5ba867b2e1b7a947c409a262"},"reviews":[],"name":"Sip of Sunshine","breweryName":"Lawsons Finest","category":{"$oid":"5ba6d4080812ed470102ab42"},"style":{"$oid":"5ba705a9ac95c72aa4e0ec58"},"__v":0}
