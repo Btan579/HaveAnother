@@ -1,0 +1,9 @@
+function  seedReviewData() {
+    console.info('seeding beer review data');
+    for (let i = 1; i <= 10; i++){
+
+    createReviewSeed(getRandomBeer());
+    
+    }
+    return Review.insertMany();
+}
