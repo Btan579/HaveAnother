@@ -1,0 +1,129 @@
+
+// Seed database
+// function seedDb() { 
+//     seedCategoriesData();
+//     seedStylesData();
+//     seedBeerData();
+//     seedUserData();
+//     seedReviewData();
+// }
+
+// function seedBeerData() {
+//     let beers = [];
+//     for (var i = 0; i < 10; i++) {
+//         let beer = new Beer({
+//             name: faker.name.lastName(),
+//             brewery: faker.company.companyName(),
+//             category: getRandomCategory(),
+//             style: getRandomStyle(),
+//             reviews: []
+//         });
+//         beers.push(beer);
+//     }
+//     Beer.insertMany(beers);
+// }
+
+// function seedCategoriesData() {
+//     let categories = [];
+//     for (var i = 0; i <= 10; i++){
+//         let category = Category({
+//             name: faker.lorem.word() + "Category"
+//         });
+//         categories.push(category);
+//     }
+//     Category.insertMany(categories);
+// }
+
+// function seedStylesData() {
+//     let styles = [];
+//     for (var i = 0; i <= 10; i++) {
+//         let style = Style({
+//             name: faker.lorem.word() + "Style"
+//         });
+//         styles.push(style);
+//     }
+//     Style.insertMany(styles);
+// }
+
+// function seedUserData() {
+//     let users = [];
+//     for (var i = 0; i <= 10; i++) {
+//         let user = new User({
+//             userName: faker.internet.userName(),
+//             password: faker.internet.password()
+//         });
+//         users.push(user);
+//     }
+//     User.insertMany(users);
+// }
+
+// function getRandomStyle() {
+//     let style = new Style();
+//     Style.find()
+//     .then(styles => {
+//         style = styles[Math.floor(Math.random() * styles.length)];
+//     });
+//     return style;
+// }
+
+// function getRandomCategory() {
+//     let category = new Category();
+//     Category.find()
+//         .then(categories => {
+//             category = categories[Math.floor(Math.random() * categories.length)];
+//         });
+//         return category;
+// }
+
+// function getRandomBeer() {
+//     let beer = new Beer();
+//     Beer.find()
+//     .then(beers => {
+//       beer = beers[Math.floor(Math.random() * beers.length)];
+//     });
+//     return beer;  
+// }
+
+// function getRandomUser() {
+//     let user = new User();
+//     User.find()
+//     .then(users => {
+//         user = users[Math.floor(Math.random() * users.length)];
+//     });
+//     return user;      
+// }
+
+// function createReviewSeed(beer) {
+    // console.log(beer);
+    // let newReview = new Review({
+    //     _id: new mongoose.Types.ObjectId(),
+    //     beer: beer._id,
+    //     haveAnother: faker.random.boolean(),
+    //     comment: faker.lorem.sentences(),
+    //     user:  getRandomUser()._id
+    // });
+
+    // newReview
+    //     .save()
+    //     .then(reviewResult => {
+    //         Beer.findOneAndUpdate(
+    //             {_id: beer._id},
+    //             {$push: {"reviews": reviewResult._id}},
+    //             {new: true},
+    //                 (err, doc) => {
+    //                     if (err) {
+    //                         console.log(err);
+    //                     }
+    //                 }
+    //         );  
+    //     });
+        // console.log(newReview);
+// }
+
+// function  seedReviewData() {
+//     console.info('seeding beer review data');
+//     for (let i = 0; i < 10; i++){
+//         createReviewSeed(getRandomBeer());
+//     }
+    
+// }
