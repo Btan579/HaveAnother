@@ -35,15 +35,11 @@ const beerSchema = mongoose.Schema({
 //     next();
 // });
 
-// beerSchema.pre('findOne', function (next) {
+// // beerSchema.pre('findOne', function (next) {
 //     this.populate('review');
 //     next();
 // });
 
-beerSchema.pre('findByIdAndUpdate', function (next) {
-    this.populate('review');
-    next();
-});
 
 beerSchema.methods.serialize = function () {
     return {
@@ -52,7 +48,7 @@ beerSchema.methods.serialize = function () {
         brewery: this.brewery,
         category: this.category,
         style: this.style,
-        reviews: this.reviews
+        reviews: this.reviews.map(review => {return review.serialize();})
     };
 };
 

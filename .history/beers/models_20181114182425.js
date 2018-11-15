@@ -52,7 +52,7 @@ beerSchema.methods.serialize = function () {
         brewery: this.brewery,
         category: this.category,
         style: this.style,
-        reviews: this.reviews
+        reviews: this.reviews.map(review => {return review.serialize();})
     };
 };
 

@@ -497,7 +497,7 @@ describe('Reviews API resource', function () {
     // });
 
 
-    // describe('POST Endpoint', function() {
+    describe('POST Endpoint', function() {
        
         // it('should POST a new user', function() {
         //     const newUser = new User({
@@ -551,79 +551,76 @@ describe('Reviews API resource', function () {
         //         });
         // });
 
-            // it('should post a new Review', async function() {
-            //     let res;
-            //     let beers = await getBeers();
-            //     let users = await getUsers();
-            //     let beer = beers[0];
-            //     let review = {
-            //         beer_id: beers[0]._id,
-            //         haveAnother: faker.random.boolean(),
-            //         comment: faker.lorem.sentences(),
-            //         user_id: users[0]._id
-            //     };
-            //     return chai.request(app)
-            //         .post('/reviews/')
-            //         .send(review)
-            //         .then(function (_res) {
-            //             res = _res;
-            //             res.should.have.status(201);
-            //             res.should.be.json;
-            //             res.body.should.be.a('object');
-            //             res.body.beer.id.should.equal(review.beer_id.toString());
-            //             return Review.find({ beer: beer._id});
-            //         })
-            //         .then((reviews) => {
-            //             res.body.beer.reviews.length.should.equal(reviews.length);
-            //         });
-            // });
-    // });
+            it('should post a new Review', async function() {
+                // let testReview;
+                let beers = await getBeers();
+                let users = await getUsers();
 
-    // describe('PUT Endpoint', function () {
-    //     it('should update fields sent over for a review', function() {
-    //         const updateData = {
-    //             haveAnother: faker.random.boolean(),
-    //             comment: faker.lorem.sentences()
-    //         };
+                let review = {
+                    _id: new mongoose.Types.ObjectId(),
+                    beer_id: beers[0]._id,
+                    haveAnother: faker.random.boolean(),
+                    comment: faker.lorem.sentences(),
+                    user_id: users[0]._id
+                };
+                 console.log(review);
+                let reviewId = review._id.toString();
+            
+               
+                return chai.request(app)
+                    .post('/reviews/')
+                    .send(review)
+                    .then(function (res) {
+                        //  console.log(review._id);
+                        //  console.log(review.id);
+                        res.should.have.status(201);
+                        res.should.be.json;
+                        res.body.should.be.a('object');
+                        res.body.beer.id.should.equal(review.beer_id.toString());
+                        // res.body.should.have.property('brewery');
+                        // res.body.should.have.property('category');
+                        // res.body.should.have.property('style');
+                        // res.body.should.have.property('reviews');
+                        // res.body.should.have.property('reviews');
+                        // res.body.should.include.keys('id', 'beer', 'comment', 'haveAnother', 'user');
+                        let savedReviews = res.body.beer.reviews;
+                        return savedReviews;
+                    })
+                    .then((savedReviews) => {
 
-    //         return Review
-    //         .findOne()
-    //         // .exec()
-    //         .then(review => {
-    //             updateData.id = review.id;
-    //             console.log(review);
-    //             return chai.request(app)
-    //             .put(`/reviews/${review.id}`)
-    //             .send(updateData);
-    //         })
-    //         .then(res => {
-    //             res.should.have.status(201);
-    //             return Review.findById(updateData.id);
-    //         })
-    //         .then(review => {
-    //             review.haveAnother.should.equal(updateData.haveAnother);
-    //             review.comment.should.equal(updateData.comment);
-    //         });
-    //     });
-    // });
+                        return Review.find();
+                            // console.log(savedReviews);
+                            // console.log(review._id);
+                        // for(let i = 0; i < savedReviews.length; i++){
+                        //     // console.log(savedReviews[i]);
+                        //     // console.log(review._id);
+                        //     if(savedReviews[i] === review._id){
+                        //         console.log('Review saved to beer');
+                        //     }
+                        //     else{
+                        //         console.log('review not saved');
+                        //     }
+                        // }
+                    //    return Beer.findById(savedBeer);
+                    })
+                    .then((ham) => {
+                        console.log(ham);
+                    });
+                    // .then((sBeer) => {
+                    //     let sBeer_id = sBeer._id.toString();
 
-    // describe('DELETE endpoint', function () {
-    //     it('should delete a review by id', function () {
-    //         let review;
-    //         return Review.findOne()
-    //         .then(_review => {
-    //             review = _review;
-    //             return chai.request(app)
-    //             .delete(`/reviews/${review.id}`);
-    //         })
-    //         .then(res => {
-    //             res.should.have.status(204);
-    //             return Review.findById(review.id);
-    //         })
-    //         .then(_review => {
-    //             should.not.exist(_review);
-    //         });
-    //     });
-    // });
+                    //     sBeer.should.have.property('name');
+                    //     sBeer.should.have.property('brewery');
+                    //     sBeer.should.have.property('category');
+                    //     sBeer.should.have.property('style');
+                    //     sBeer.should.have.property('reviews');
+                    //     sBeer_id.should.equal(beers[0]._id.toString());
+                    //     // console.log(sBeer);
+                    //     // console.log(sBeer.reviews);
+                    // });
+                 
+            });
+
+    });
 
 });

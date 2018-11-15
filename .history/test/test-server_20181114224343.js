@@ -579,51 +579,28 @@ describe('Reviews API resource', function () {
             // });
     // });
 
-    // describe('PUT Endpoint', function () {
-    //     it('should update fields sent over for a review', function() {
-    //         const updateData = {
-    //             haveAnother: faker.random.boolean(),
-    //             comment: faker.lorem.sentences()
-    //         };
+    describe('PUT Endpoint', function () {
+        it('should update fields sent over for a review', function() {
+            const updateData = {
+                haveAnother: faker.random.boolean(),
+                comment: faker.lorem.sentences()
+            };
 
-    //         return Review
-    //         .findOne()
-    //         // .exec()
-    //         .then(review => {
-    //             updateData.id = review.id;
-    //             console.log(review);
-    //             return chai.request(app)
-    //             .put(`/reviews/${review.id}`)
-    //             .send(updateData);
-    //         })
-    //         .then(res => {
-    //             res.should.have.status(201);
-    //             return Review.findById(updateData.id);
-    //         })
-    //         .then(review => {
-    //             review.haveAnother.should.equal(updateData.haveAnother);
-    //             review.comment.should.equal(updateData.comment);
-    //         });
-    //     });
-    // });
+            return Review
+            .findOne()
+            .then(review => {
+                updateData.id = review.id;
+                // console.log(updateData.id);
+                return chai.request(app)
+                .put(`/reviews/${review.id}`)
+                .send(updateData)
+            })
+            .then(res => {
+                res.should.have.status(204);
+                return Review.findById(updateData.id);
+            });
+        });
 
-    // describe('DELETE endpoint', function () {
-    //     it('should delete a review by id', function () {
-    //         let review;
-    //         return Review.findOne()
-    //         .then(_review => {
-    //             review = _review;
-    //             return chai.request(app)
-    //             .delete(`/reviews/${review.id}`);
-    //         })
-    //         .then(res => {
-    //             res.should.have.status(204);
-    //             return Review.findById(review.id);
-    //         })
-    //         .then(_review => {
-    //             should.not.exist(_review);
-    //         });
-    //     });
-    // });
+    });
 
 });

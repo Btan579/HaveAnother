@@ -98,6 +98,7 @@ router.post('/', (req, res) => {
             //         beer: beer.serialize()
             //     });
             // }
+            
            return res.status(201).json({
                beer: beer.serialize()
            });
@@ -129,7 +130,7 @@ router.put('/:id', (req, res) => {
         }, {
             new: true
         })
-        .then(updatedPost => res.status(201).json({
+        .then(updatedPost => res.status(200).json({
             id: updatedPost.id,
             beer: updatedPost.beer,
             comment: updatedPost.comment,

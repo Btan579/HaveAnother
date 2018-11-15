@@ -607,23 +607,23 @@ describe('Reviews API resource', function () {
     //     });
     // });
 
-    // describe('DELETE endpoint', function () {
-    //     it('should delete a review by id', function () {
-    //         let review;
-    //         return Review.findOne()
-    //         .then(_review => {
-    //             review = _review;
-    //             return chai.request(app)
-    //             .delete(`/reviews/${review.id}`);
-    //         })
-    //         .then(res => {
-    //             res.should.have.status(204);
-    //             return Review.findById(review.id);
-    //         })
-    //         .then(_review => {
-    //             should.not.exist(_review);
-    //         });
-    //     });
-    // });
+    describe('DELETE endpoint', function () {
+        it('should delete a review by id', function () {
+            let review;
+            return Review.findOne()
+            .then(_review => {
+                review = _review;
+                return chai.request(app)
+                .delete(`/reviews/${review.id}`);
+            })
+            .then(res => {
+                res.should.have.status(204);
+                return Review.findById(review.id);
+            })
+            .then(_review => {
+                should.not.exist(_review);
+            });
+        });
+    });
 
 });
