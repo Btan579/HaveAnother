@@ -64,7 +64,7 @@ function seedStylesData () {
 
 function seedBeerData (categories, styles) {  
     let beers = [];
-    for (var i = 1; i < 7; i++) {
+    for (var i = 1; i < 5; i++) {
         let beer = new Beer({
             name: faker.name.lastName(),
             brewery: faker.company.companyName(),
@@ -79,7 +79,7 @@ function seedBeerData (categories, styles) {
 
 function seedReviewData(users, beers) {
     console.info('seeding beer review data');
-    for (let j = 0; j < 30; j++) {
+    for (let j = 0; j < 15; j++) {
         createReviewSeed(users, beers);
     } 
 }
@@ -168,7 +168,7 @@ function createReviewSeed(users, beers) {
                 (err, doc) => {
                     if (err) { console.log(err);
                     }
-                    // `console.log(doc);`
+                    // console.log(doc);
                 }
             );
         });
@@ -452,28 +452,100 @@ describe('Reviews API resource', function () {
             //             });       
             //     });
             // });
-            it("should return reviews for a specific beer", async function () {
-                let sBeer;
+
+            it("should return reviews for a specific beer",  async function() {
+               let sBeer;
                 await Beer.findOne()
-                    .then(beer => {
-                        sBeer = beer;
+                .then(beer => {
+                    console.log('TEST beer');
+                    console.log(beer);
+                    console.log('TEST beer');
+                    
+                    sBeer = beer;
+                    return Review.find({
+                        '_id': beer.reviews
                     });
-                return chai.request(app)
-                    .get(`/beers/${sBeer._id}`)
-                    .then(res => {
-                        
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.reviews.should.be.an('array');
-                        res.body.reviews.forEach(function (review) {
-                            review.should.be.a('object');
-                            review.should.include.keys('id', 'beer', 'haveAnother', 'comment', 'user');
-                            review.beer.should.equal(sBeer._id.toString());
-                        });
-                    });
+                    // return sBeer;
+                });
+
+                console.log(sBeer);
+                // .then(reviews => {
+                //      console.log('TEST Reviews');
+                //      console.log(reviews);
+                //      console.log('TEST Reviews');
+                // })
+
+                // let res;
+                // await Beer.findOne()
+                //     .then(beer => {
+                //         console.log('TEST beer');
+                //         console.log(beer);
+                //         console.log('TEST beer');
+                //         return beer;
+                //     })
+                //     .get(`/beers/${beer._id}`)
+                //     .then(_res => {
+                //         res = _res;
+                //         res.should.have.status(201);
+                //         res.should.be.json;
+                //         res.body.should.be.a('object');
+                //     });
+
+                    // .then(beer => {
+                    //     return Review.find({
+                    //         '_id': beer.reviews
+                    //     });
+                    // })
+                    // .then(reviews => {
+                    //     console.log('TEST Reviews');
+                    //     console.log(reviews);
+                    //     console.log('TEST Reviews');
+                    // })
+              
+                // await Beer.findOne()
+                // .then(beer => {
+                //     console.log(beer._id);
+                //     return chai.request(app)
+                //     .get(`/beers/${beer._id}`)
+                //     .send(beer._id)
+                //     .then(res => {
+                //         res.should.have.status(200);
+                //         res.body.should.be.a('object');
+                //         res.body.should.have.property('name');
+                //         res.body.should.have.property('brewery');
+                //         res.body.should.have.property('category');
+                //         res.body.should.have.property('style');
+                //         res.body.should.have.property('reviews');
+                //     });
+                // });
+                // .then(res => {
+                //     // console.log(res.body);
+                // });
+                
+                // const newBeer = new Beer({
+                //     name: faker.name.lastName(),
+                //     brewery: faker.company.companyName(),
+                //     category: new mongoose.Types.ObjectId(),
+                //     style: new mongoose.Types.ObjectId(),
+                //     reviews: []
+                // });
+                // newBeer.save((err, newBeer) => {
+                    // return chai.request(app)
+                    //     .get(`/beers/${newBeer._id}`)
+                    //     .send(newBeer)
+                    //     .end((err, res) => {
+                    //         res.should.have.status(200);
+                    //         res.body.should.be.a('object');
+                    //         res.body.should.have.property('name');
+                    //         res.body.should.have.property('brewery');
+                    //         res.body.should.have.property('category');
+                    //         res.body.should.have.property('style');
+                    //         res.body.should.have.property('reviews');
+                    //         res.body.should.have.property('_id').equal(newBeer._id.toString());
+                    //         done();
+                    //     });
+                // });
             });
-            
-    
 
             //  it("should return a specific user", function (done) {
             //     const newUser = new User({

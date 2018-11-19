@@ -64,7 +64,7 @@ function seedStylesData () {
 
 function seedBeerData (categories, styles) {  
     let beers = [];
-    for (var i = 1; i < 7; i++) {
+    for (var i = 1; i < 10; i++) {
         let beer = new Beer({
             name: faker.name.lastName(),
             brewery: faker.company.companyName(),
@@ -79,7 +79,7 @@ function seedBeerData (categories, styles) {
 
 function seedReviewData(users, beers) {
     console.info('seeding beer review data');
-    for (let j = 0; j < 30; j++) {
+    for (let j = 0; j < 35; j++) {
         createReviewSeed(users, beers);
     } 
 }
@@ -168,7 +168,7 @@ function createReviewSeed(users, beers) {
                 (err, doc) => {
                     if (err) { console.log(err);
                     }
-                    // `console.log(doc);`
+                    // console.log(doc);
                 }
             );
         });
@@ -452,28 +452,28 @@ describe('Reviews API resource', function () {
             //             });       
             //     });
             // });
-            it("should return reviews for a specific beer", async function () {
-                let sBeer;
+
+            it("should return reviews for a specific beer",  async function() {
+               let sBeer;
                 await Beer.findOne()
-                    .then(beer => {
-                        sBeer = beer;
-                    });
+                .then(beer => {
+                    sBeer = beer;
+                });
+
                 return chai.request(app)
-                    .get(`/beers/${sBeer._id}`)
-                    .then(res => {
-                        
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.reviews.should.be.an('array');
-                        res.body.reviews.forEach(function (review) {
-                            review.should.be.a('object');
-                            review.should.include.keys('id', 'beer', 'haveAnother', 'comment', 'user');
-                            review.beer.should.equal(sBeer._id.toString());
-                        });
+                .get(`/beers/${sBeer._id}`)
+                .then(res => {
+                    console.log(res.body);
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.reviews.should.be.an('array');
+                    res.body.reviews.forEach(function (review) {
+                        review.should.be.a('object');
+                        review.should.include.keys('id', 'beer', 'haveAnother', 'comment', 'user');
+                        review.beer.should.equal(sBeer._id.toString());
                     });
+                });
             });
-            
-    
 
             //  it("should return a specific user", function (done) {
             //     const newUser = new User({

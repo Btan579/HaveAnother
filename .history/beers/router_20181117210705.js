@@ -31,21 +31,43 @@ router.get('/', (req, res) => {
         });
 });
 
+// router.get("/:id", (req, res) => {
+//     // let dReviews = [];
+//     Beer
+//         .findById(req.params.id)
+//         .then(beer => {
+//             res.json({
+//                 reviews: beer.reviews
+//             });
+//             return beer.reviews;
+//             // return Review.findById(beer.reviews);
+//         })
+//         .then((dReviews) => {
+//             console.log(dReviews);
+//              for (var i = 0; i < dReviews.length; i++) {
+//                 return Review.findById(dReviews[i]);
+//              }
+    
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(500).json({
+//                 error: 'something went horribly awry'
+//             });
+//         });
+// });
+
 router.get("/:id", (req, res) => {
     Beer
         .findById(req.params.id)
         .then(beer => {
-            return Review.find({
-                '_id': beer.reviews
-            });
-        })
-        .then(reviews => {
-            // console.log(reviews);
             res.json({
-                reviews: reviews.map(
-                    (review) => {
-                        return review.serialize();
-                    })
+                _id: beer._id,
+                name: beer.name,
+                brewery: beer.brewery,
+                category: beer.category,
+                style: beer.style,
+                reviews: beer.reviews
             });
         })
         .catch(err => {
@@ -55,27 +77,6 @@ router.get("/:id", (req, res) => {
             });
         });
 });
-
-// router.get("/:id", (req, res) => {
-//     Beer
-//         .findById(req.params.id)
-//         .then(beer => {
-//             res.json({
-//                 _id: beer._id,
-//                 name: beer.name,
-//                 brewery: beer.brewery,
-//                 category: beer.category,
-//                 style: beer.style,
-//                 reviews: beer.reviews
-//             });
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).json({
-//                 error: 'something went horribly awry'
-//             });
-//         });
-// });
 
 router.post('/', (req, res) => {
     const requiredFields = ['name', 'brewery', 'style', 'category', 'reviews'];

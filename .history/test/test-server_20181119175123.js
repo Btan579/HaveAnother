@@ -168,7 +168,7 @@ function createReviewSeed(users, beers) {
                 (err, doc) => {
                     if (err) { console.log(err);
                     }
-                    // `console.log(doc);`
+                    // console.log(doc);
                 }
             );
         });

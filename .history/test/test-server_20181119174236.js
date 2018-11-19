@@ -168,7 +168,7 @@ function createReviewSeed(users, beers) {
                 (err, doc) => {
                     if (err) { console.log(err);
                     }
-                    // `console.log(doc);`
+                    console.log(doc);
                 }
             );
         });
@@ -461,7 +461,7 @@ describe('Reviews API resource', function () {
                 return chai.request(app)
                     .get(`/beers/${sBeer._id}`)
                     .then(res => {
-                        
+                        console.log(res.body);
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body.reviews.should.be.an('array');
@@ -473,7 +473,7 @@ describe('Reviews API resource', function () {
                     });
             });
             
-    
+    });
 
             //  it("should return a specific user", function (done) {
             //     const newUser = new User({

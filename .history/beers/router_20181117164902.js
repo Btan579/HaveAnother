@@ -35,17 +35,8 @@ router.get("/:id", (req, res) => {
     Beer
         .findById(req.params.id)
         .then(beer => {
-            return Review.find({
-                '_id': beer.reviews
-            });
-        })
-        .then(reviews => {
-            // console.log(reviews);
             res.json({
-                reviews: reviews.map(
-                    (review) => {
-                        return review.serialize();
-                    })
+                reviews: beer.reviews
             });
         })
         .catch(err => {

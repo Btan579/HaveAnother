@@ -64,7 +64,7 @@ function seedStylesData () {
 
 function seedBeerData (categories, styles) {  
     let beers = [];
-    for (var i = 1; i < 7; i++) {
+    for (var i = 1; i < 15; i++) {
         let beer = new Beer({
             name: faker.name.lastName(),
             brewery: faker.company.companyName(),
@@ -161,14 +161,13 @@ function createReviewSeed(users, beers) {
     newReview
         .save()
         .then(reviewResult => {
-            // console.log(reviewResult);
+            console.log(reviewResult);
             Beer.findOneAndUpdate({_id: beerId}, 
                 { $push: {reviews: reviewResult._id}}, 
                 {new: true},
                 (err, doc) => {
                     if (err) { console.log(err);
                     }
-                    // `console.log(doc);`
                 }
             );
         });
@@ -204,17 +203,17 @@ describe('Reviews API resource', function () {
         // });
 
         // it("should return all users", function () {
-            // let res;
-            // return chai.request(app)
-            //     .get('/users/')
-            //     .then(_res => {
-            //         res = _res;
-            //         res.should.have.status(200);
-            //         res.should.be.json;
-            //         res.body.users.should.have.lengthOf.at.least(1);
+        //     let res;
+        //     return chai.request(app)
+        //         .get('/users/')
+        //         .then(_res => {
+        //             res = _res;
+        //             res.should.have.status(200);
+        //             res.should.be.json;
+        //             res.body.users.should.have.lengthOf.at.least(1);
 
-            //         return User.countDocuments();
-            //     })
+        //             return User.countDocuments();
+        //         })
         //         .then(count => {
         //             res.body.users.should.have.lengthOf(count);
         //         });
@@ -452,28 +451,61 @@ describe('Reviews API resource', function () {
             //             });       
             //     });
             // });
-            it("should return reviews for a specific beer", async function () {
-                let sBeer;
-                await Beer.findOne()
-                    .then(beer => {
-                        sBeer = beer;
+
+            it("should return reviews for a specific", function (done) {
+                Beer.findOne()
+                .then(beer => {
+                     const newReview = new Review({
+                        _id: new mongoose.Types.ObjectId(),
+                        beer: beer._id,
+                        haveAnother: faker.random.boolean(),
+                        comment: faker.lorem.sentences(),
+                        user: new mongoose.Types.ObjectId()
                     });
-                return chai.request(app)
-                    .get(`/beers/${sBeer._id}`)
-                    .then(res => {
-                        
-                        res.should.have.status(200);
-                        res.should.be.json;
-                        res.body.reviews.should.be.an('array');
-                        res.body.reviews.forEach(function (review) {
-                            review.should.be.a('object');
-                            review.should.include.keys('id', 'beer', 'haveAnother', 'comment', 'user');
-                            review.beer.should.equal(sBeer._id.toString());
-                        });
-                    });
+                    newReview.save();
+                });
+                // .then((review) => {
+                    
+                    // Beer.findOneAndUpdate({
+                    //         _id: newReview.beer
+                    //     }, {
+                    //         $push: {
+                    //             reviews: reviewResult._id
+                    //         }
+                    //     }, {
+                    //         new: true
+                    //     },
+                    //     (err, doc) => {
+                    //         if (err) {
+                    //             console.log(err);
+                    //         }
+                    //     }
+                    // );
+                // });
+                // const newBeer = new Beer({
+                //     name: faker.name.lastName(),
+                //     brewery: faker.company.companyName(),
+                //     category: new mongoose.Types.ObjectId(),
+                //     style: new mongoose.Types.ObjectId(),
+                //     reviews: []
+                // });
+                // newBeer.save((err, newBeer) => {
+                    // return chai.request(app)
+                    //     .get(`/beers/${newBeer._id}`)
+                    //     .send(newBeer)
+                    //     .end((err, res) => {
+                    //         res.should.have.status(200);
+                    //         res.body.should.be.a('object');
+                    //         res.body.should.have.property('name');
+                    //         res.body.should.have.property('brewery');
+                    //         res.body.should.have.property('category');
+                    //         res.body.should.have.property('style');
+                    //         res.body.should.have.property('reviews');
+                    //         res.body.should.have.property('_id').equal(newBeer._id.toString());
+                    //         done();
+                    //     });
+                // });
             });
-            
-    
 
             //  it("should return a specific user", function (done) {
             //     const newUser = new User({

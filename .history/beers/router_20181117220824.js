@@ -32,20 +32,34 @@ router.get('/', (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
+    // let reviews = [];
+    
     Beer
         .findById(req.params.id)
         .then(beer => {
-            return Review.find({
-                '_id': beer.reviews
-            });
+            return beer.reviews;
+            // return Review.findById(beer.reviews);
         })
-        .then(reviews => {
-            // console.log(reviews);
+        .then((dReviews) => {
+            // console.log(dReviews);
+            
+            for(var i = 0; i < dReviews.length; i++) {
+            return Review.find({ '_id': dReviews[i]});
+            
+            }
+            //  for (var i = 0; i < dReviews.length; i++) {
+            //     return Review.findById(dReviews[i]);
+            //  }
+
+        })
+        .then((review) => {
+            console.log(review);
             res.json({
-                reviews: reviews.map(
-                    (review) => {
-                        return review.serialize();
-                    })
+                _id: review._id,
+                beer: review.beer,
+                comment: review.comment,
+                haveAnother: review.haveAnother,
+                user: review.user
             });
         })
         .catch(err => {

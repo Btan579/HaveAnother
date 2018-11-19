@@ -32,22 +32,54 @@ router.get('/', (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
+    // let reviews = [];
+    
     Beer
         .findById(req.params.id)
         .then(beer => {
-            return Review.find({
-                '_id': beer.reviews
-            });
+            console.log(beer.reviews);
+             beer.reviews.forEach(function (review) {
+                 res.json({
+                     _id: review._id,
+                     beer: review.beer,
+                     comment: review.comment,
+                     haveAnother: review.haveAnother,
+                     user: review.user
+                 });
+             });
+            // return Review.findById(beer.reviews);
         })
-        .then(reviews => {
-            // console.log(reviews);
-            res.json({
-                reviews: reviews.map(
-                    (review) => {
-                        return review.serialize();
-                    })
-            });
-        })
+        // .then((dReviews) => {
+        //     Review.find({
+        //                 '_id': dReviews[i]
+        //             }
+            
+        //     // console.log(dReviews);
+        //     dReviews.forEach(function(review) {
+        //         res.json({
+        //             _id: review._id,
+        //             beer: review.beer,
+        //             comment: review.comment,
+        //             haveAnother: review.haveAnother,
+        //             user: review.user
+        //         });
+        //     });
+            
+        //     //  for (var i = 0; i < dReviews.length; i++) {
+        //     //     return Review.findById(dReviews[i]);
+        //     //  }
+
+        // })
+        // .then((reviews) => {
+        //     for()
+        //     res.json({
+        //         _id: review._id,
+        //         beer: review.beer,
+        //         comment: review.comment,
+        //         haveAnother: review.haveAnother,
+        //         user: review.user
+        //     });
+        // })
         .catch(err => {
             console.error(err);
             res.status(500).json({

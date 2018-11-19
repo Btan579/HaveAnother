@@ -17,21 +17,21 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 // Get all reviews
-router.get("/", (req, res) => {
-    Review
-    .find()
-    .then(reviews => {
-        res.json({
-            reviews: reviews.map(
-                (review) => {
-                return review.serialize();
-                })
-        });
-    })
-    .catch(err => {
-        if(err)return console.error(err);
-    });
-});
+// router.get("/", (req, res) => {
+//     Review
+//     .find()
+//     .then(reviews => {
+//         res.json({
+//             reviews: reviews.map(
+//                 (review) => {
+//                 return review.serialize();
+//                 })
+//         });
+//     })
+//     .catch(err => {
+//         if(err)return console.error(err);
+//     });
+// });
 
 router.get("/", (req, res) => {
     Review
@@ -91,6 +91,7 @@ router.post('/', (req, res) => {
     newReview
     .save()
     .then(reviewResult => {
+        
         Beer.findByIdAndUpdate(
             req.body.beer_id,
             {$push: {reviews: reviewResult._id}},

@@ -17,23 +17,25 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 // Get all reviews
-router.get("/", (req, res) => {
-    Review
-    .find()
-    .then(reviews => {
-        res.json({
-            reviews: reviews.map(
-                (review) => {
-                return review.serialize();
-                })
-        });
-    })
-    .catch(err => {
-        if(err)return console.error(err);
-    });
-});
+// router.get("/", (req, res) => {
+//     Review
+//     .find()
+//     .then(reviews => {
+//         res.json({
+//             reviews: reviews.map(
+//                 (review) => {
+//                 return review.serialize();
+//                 })
+//         });
+//     })
+//     .catch(err => {
+//         if(err)return console.error(err);
+//     });
+// });
 
-router.get("/", (req, res) => {
+router.get("/sbeer/", (req, res) => {
+
+
     Review
         .find()
         .then(reviews => {
@@ -49,8 +51,8 @@ router.get("/", (req, res) => {
         });
 });
 
-//  Get specific review by id
 router.get("/:id", (req, res) => {
+    
     Review
         .findById(req.params.id)
         .then(review => {
@@ -64,9 +66,30 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            res.status(500).json({error: 'something went horribly awry'});
-    });
+            res.status(500).json({
+                error: 'something went horribly awry'
+            });
+        });
 });
+
+//  Get specific review by id
+// router.get("/:id", (req, res) => {
+//     Review
+//         .findById(req.params.id)
+//         .then(review => {
+//             res.json({
+//                 _id: review._id,
+//                 beer: review.beer,
+//                 comment: review.comment,
+//                 haveAnother: review.haveAnother,
+//                 user: review.user
+//             });
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(500).json({error: 'something went horribly awry'});
+//     });
+// });
 
 // Post review
 router.post('/', (req, res) => {
@@ -91,6 +114,7 @@ router.post('/', (req, res) => {
     newReview
     .save()
     .then(reviewResult => {
+        
         Beer.findByIdAndUpdate(
             req.body.beer_id,
             {$push: {reviews: reviewResult._id}},

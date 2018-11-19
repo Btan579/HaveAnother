@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
             });
         })
         .then(reviews => {
-            // console.log(reviews);
+            console.log(reviews);
             res.json({
                 reviews: reviews.map(
                     (review) => {
