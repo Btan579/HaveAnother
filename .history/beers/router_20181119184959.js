@@ -32,54 +32,31 @@ router.get('/', (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    let beer = {};
-
     Beer
-     .findById(req.params.id)
-     .then(_beer => {
-        beer = _beer;
-        return _beer.reviews;
-     })
-     .then(_reviews => {
-        Review
-         .find({'_id': { $in: beer.reviews}
+        .findById(req.params.id)
+        .populate({path: 'review', model: 'Review'})
+        .then(beer => {
+            // console.log(beer);
+            // return Review.find({
+            //     '_id': beer.reviews
+            // });
+            
         })
-        .then(_rvs => { 
-            res.status(201).json({
-                beer: beer.serialize(),
-                reviews: _rvs.map(review => review.serialize())
-            })
+        .then(reviews => {
+            // console.log(reviews);
+            res.json({
+                reviews: reviews.map(
+                    (review) => {
+                        return review.serialize();
+                    })
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({
+                error: 'something went horribly awry'
+            });
         });
-     })
-     .catch(err => {
-        console.error(err);
-        res.status(500).json({
-            error: 'something went horribly awry'
-        });
-     });
-    // Beer
-    //     .findById(req.params.id)
-    //     .then(beer => {
-    //         console
-    //         return Review.find({
-    //             '_id': beer.reviews
-    //         });
-    //     })
-    //     .then(reviews => {
-    //         // console.log(reviews);
-    //         res.json({
-    //             reviews: reviews.map(
-    //                 (review) => {
-    //                     return review.serialize();
-    //                 })
-    //         });
-    //     })
-        // .catch(err => {
-        //     console.error(err);
-        //     res.status(500).json({
-        //         error: 'something went horribly awry'
-        //     });
-        // });
 });
 
 // router.get("/:id", (req, res) => {

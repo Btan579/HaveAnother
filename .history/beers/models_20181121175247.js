@@ -47,8 +47,6 @@ const beerSchema = mongoose.Schema({
 //     next();
 // });
 
-
-
 beerSchema.methods.serialize = function () {
     return {
         id: this._id,

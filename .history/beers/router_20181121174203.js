@@ -35,14 +35,14 @@ router.get("/:id", (req, res) => {
     let beer = {};
 
     Beer
-     .findById(req.params.id)
-     .then(_beer => {
+    .findById(req.params.id)
+    .then(_beer => {
         beer = _beer;
         return _beer.reviews;
-     })
-     .then(_reviews => {
+    })
+    .then(_reviews => {
         Review
-         .find({'_id': { $in: beer.reviews}
+        .find({'_id': { $in: beer.reviews}
         })
         .then(_rvs => { 
             res.status(201).json({
@@ -50,13 +50,13 @@ router.get("/:id", (req, res) => {
                 reviews: _rvs.map(review => review.serialize())
             })
         });
-     })
-     .catch(err => {
+    })
+    .catch(err => {
         console.error(err);
         res.status(500).json({
             error: 'something went horribly awry'
         });
-     });
+    });
     // Beer
     //     .findById(req.params.id)
     //     .then(beer => {

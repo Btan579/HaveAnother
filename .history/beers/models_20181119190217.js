@@ -22,9 +22,9 @@ const beerSchema = mongoose.Schema({
     },
     style: {type: mongoose.Schema.Types.ObjectId, ref: 'Style'
     },
-    reviews: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Review'
-    }]
+    reviews: {
+        type: mongoose.Schema.Types.Array, ref: 'Review'
+    }
 });
 
 // beerSchema.pre('find', function (next) {
@@ -46,8 +46,6 @@ const beerSchema = mongoose.Schema({
 //     this.populate('review');
 //     next();
 // });
-
-
 
 beerSchema.methods.serialize = function () {
     return {

@@ -50,13 +50,22 @@ const beerSchema = mongoose.Schema({
 
 
 beerSchema.methods.serialize = function () {
+    let reviews = Review.find({ '_id': { $in: this.reviews}
+        })
+        .then(reviews => {
+            return reviews.map(review => {
+                return review.serialize();
+            });
+        }); 
+
     return {
         id: this._id,
         name: this.name,
         brewery: this.brewery,
         category: this.category,
         style: this.style,
-        reviews: this.reviews
+        // reviews: this.reviews
+        reviews: reviews
     };
 };
 
