@@ -19,7 +19,14 @@ const { TEST_DATABASE_URL } = require('../config');
 const should = chai.should();
 chai.use(chaiHttp);
 
-
+function tearDownDb() {
+    return new Promise((resolve, reject) => {
+        console.warn('Deleting database');
+        mongoose.connection.dropDatabase()
+            .then(result => resolve(result))
+            .catch(err => reject(err));
+    });
+}
 
 function seedUserData() {
     let users = [];
@@ -163,15 +170,6 @@ function createReviewSeed(users, beers) {
                 }
             );
         });
-}
-
-function tearDownDb() {
-    return new Promise((resolve, reject) => {
-        console.warn('Deleting database');
-        mongoose.connection.dropDatabase()
-            .then(result => resolve(result))
-            .catch(err => reject(err));
-    });
 }
 
 describe('Reviews API resource', function () {
@@ -472,130 +470,130 @@ describe('Reviews API resource', function () {
     });
 
 
-    describe('POST Endpoint', function() {
+    // describe('POST Endpoint', function() {
        
-        it('should POST a new user', function() {
-            const newUser = new User({
-                userName: faker.internet.userName(),
-                password: faker.internet.password()
-            });
+    //     it('should POST a new user', function() {
+    //         const newUser = new User({
+    //             userName: faker.internet.userName(),
+    //             password: faker.internet.password()
+    //         });
 
-            return chai.request(app)
-            .post('/users/')
-            .send(newUser)
-            .then((res) => {
-                res.should.have.status(201);
-                res.should.be.json;
-                res.body.should.be.a('object');
-                res.body.should.include.keys('userName', 'password');
-                res.body._id.should.not.be.null;
-                res.body.userName.should.equal(newUser.userName);
-                res.body.password.should.equal(newUser.password);
-                return User.findById(res.body._id);
-            })
-            .then((user) => {
-                user.userName.should.equal(newUser.userName);
-                user.password.should.equal(newUser.password);
-            });
-        });
+    //         return chai.request(app)
+    //         .post('/users/')
+    //         .send(newUser)
+    //         .then((res) => {
+    //             res.should.have.status(201);
+    //             res.should.be.json;
+    //             res.body.should.be.a('object');
+    //             res.body.should.include.keys('userName', 'password');
+    //             res.body._id.should.not.be.null;
+    //             res.body.userName.should.equal(newUser.userName);
+    //             res.body.password.should.equal(newUser.password);
+    //             return User.findById(res.body._id);
+    //         })
+    //         .then((user) => {
+    //             user.userName.should.equal(newUser.userName);
+    //             user.password.should.equal(newUser.password);
+    //         });
+    //     });
 
-        it('should POST a new Beer', function() {
-            const newBeer = new Beer({
-                name: faker.name.lastName(),
-                brewery: faker.company.companyName(),
-                category: new mongoose.Types.ObjectId(),
-                style: new mongoose.Types.ObjectId(),
-                reviews: []
-            });
-            return chai.request(app)
-                .post('/beers/')
-                .send(newBeer)
-                .then(function (res) {
-                    res.should.have.status(201);
-                    res.should.be.json;
-                    res.body.should.be.a('object');
-                    res.body.should.include.keys('_id', 'name', 'brewery', 'category', 'style', 'reviews');
-                    res.body._id.should.not.be.null;
-                    res.body.name.should.equal(newBeer.name);
-                    res.body.brewery.should.equal(newBeer.brewery);
-                    res.body.category.should.equal(newBeer.category.toString());
-                    res.body.style.should.equal(newBeer.style.toString());
-                    res.body.reviews.should.be.an('array');
-                    res.body.reviews.length.should.equal(newBeer.reviews.length);
-                });
-        });
+    //     it('should POST a new Beer', function() {
+    //         const newBeer = new Beer({
+    //             name: faker.name.lastName(),
+    //             brewery: faker.company.companyName(),
+    //             category: new mongoose.Types.ObjectId(),
+    //             style: new mongoose.Types.ObjectId(),
+    //             reviews: []
+    //         });
+    //         return chai.request(app)
+    //             .post('/beers/')
+    //             .send(newBeer)
+    //             .then(function (res) {
+    //                 res.should.have.status(201);
+    //                 res.should.be.json;
+    //                 res.body.should.be.a('object');
+    //                 res.body.should.include.keys('_id', 'name', 'brewery', 'category', 'style', 'reviews');
+    //                 res.body._id.should.not.be.null;
+    //                 res.body.name.should.equal(newBeer.name);
+    //                 res.body.brewery.should.equal(newBeer.brewery);
+    //                 res.body.category.should.equal(newBeer.category.toString());
+    //                 res.body.style.should.equal(newBeer.style.toString());
+    //                 res.body.reviews.should.be.an('array');
+    //                 res.body.reviews.length.should.equal(newBeer.reviews.length);
+    //             });
+    //     });
 
-        it('should post a new Review', async function() {
-            let res;
-            let beers = await getBeers();
-            let users = await getUsers();
-            let beer = beers[0];
-            let review = {
-                beer_id: beers[0]._id,
-                haveAnother: faker.random.boolean(),
-                comment: faker.lorem.sentences(),
-                user_id: users[0]._id
-            };
-            return chai.request(app)
-                .post('/reviews/')
-                .send(review)
-                .then(function (_res) {
-                    res = _res;
-                    res.should.have.status(201);
-                    res.should.be.json;
-                    res.body.should.be.a('object');
-                    res.body.beer.id.should.equal(review.beer_id.toString());
-                    return Review.find({ beer: beer._id});
-                })
-                .then((reviews) => {
-                    res.body.beer.reviews.length.should.equal(reviews.length);
-                });
-        });
-    });
+    //     it('should post a new Review', async function() {
+    //         let res;
+    //         let beers = await getBeers();
+    //         let users = await getUsers();
+    //         let beer = beers[0];
+    //         let review = {
+    //             beer_id: beers[0]._id,
+    //             haveAnother: faker.random.boolean(),
+    //             comment: faker.lorem.sentences(),
+    //             user_id: users[0]._id
+    //         };
+    //         return chai.request(app)
+    //             .post('/reviews/')
+    //             .send(review)
+    //             .then(function (_res) {
+    //                 res = _res;
+    //                 res.should.have.status(201);
+    //                 res.should.be.json;
+    //                 res.body.should.be.a('object');
+    //                 res.body.beer.id.should.equal(review.beer_id.toString());
+    //                 return Review.find({ beer: beer._id});
+    //             })
+    //             .then((reviews) => {
+    //                 res.body.beer.reviews.length.should.equal(reviews.length);
+    //             });
+    //     });
+    // });
 
-    describe('PUT Endpoint', function () {
-        it('should update fields sent over for a review', function() {
-            const updateData = {
-                haveAnother: faker.random.boolean(),
-                comment: faker.lorem.sentences()
-            };
-            return Review
-            .findOne()
-            .then(review => {
-                updateData.id = review.id;
-                console.log(review);
-                return chai.request(app)
-                .put(`/reviews/${review.id}`)
-                .send(updateData);
-            })
-            .then(res => {
-                res.should.have.status(201);
-                return Review.findById(updateData.id);
-            })
-            .then(review => {
-                review.haveAnother.should.equal(updateData.haveAnother);
-                review.comment.should.equal(updateData.comment);
-            });
-        });
-    });
+    // describe('PUT Endpoint', function () {
+    //     it('should update fields sent over for a review', function() {
+    //         const updateData = {
+    //             haveAnother: faker.random.boolean(),
+    //             comment: faker.lorem.sentences()
+    //         };
+    //         return Review
+    //         .findOne()
+    //         .then(review => {
+    //             updateData.id = review.id;
+    //             console.log(review);
+    //             return chai.request(app)
+    //             .put(`/reviews/${review.id}`)
+    //             .send(updateData);
+    //         })
+    //         .then(res => {
+    //             res.should.have.status(201);
+    //             return Review.findById(updateData.id);
+    //         })
+    //         .then(review => {
+    //             review.haveAnother.should.equal(updateData.haveAnother);
+    //             review.comment.should.equal(updateData.comment);
+    //         });
+    //     });
+    // });
 
-    describe('DELETE endpoint', function () {
-        it('should delete a review by id', function () {
-            let review;
-            return Review.findOne()
-            .then(_review => {
-                review = _review;
-                return chai.request(app)
-                .delete(`/reviews/${review.id}`);
-            })
-            .then(res => {
-                res.should.have.status(204);
-                return Review.findById(review.id);
-            })
-            .then(_review => {
-                should.not.exist(_review);
-            });
-        });
-    });
+    // describe('DELETE endpoint', function () {
+    //     it('should delete a review by id', function () {
+    //         let review;
+    //         return Review.findOne()
+    //         .then(_review => {
+    //             review = _review;
+    //             return chai.request(app)
+    //             .delete(`/reviews/${review.id}`);
+    //         })
+    //         .then(res => {
+    //             res.should.have.status(204);
+    //             return Review.findById(review.id);
+    //         })
+    //         .then(_review => {
+    //             should.not.exist(_review);
+    //         });
+    //     });
+    // });
 
 });

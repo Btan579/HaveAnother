@@ -19,7 +19,14 @@ const { TEST_DATABASE_URL } = require('../config');
 const should = chai.should();
 chai.use(chaiHttp);
 
-
+function tearDownDb() {
+    return new Promise((resolve, reject) => {
+        console.warn('Deleting database');
+        mongoose.connection.dropDatabase()
+            .then(result => resolve(result))
+            .catch(err => reject(err));
+    });
+}
 
 function seedUserData() {
     let users = [];
@@ -165,15 +172,6 @@ function createReviewSeed(users, beers) {
         });
 }
 
-function tearDownDb() {
-    return new Promise((resolve, reject) => {
-        console.warn('Deleting database');
-        mongoose.connection.dropDatabase()
-            .then(result => resolve(result))
-            .catch(err => reject(err));
-    });
-}
-
 describe('Reviews API resource', function () {
     before(function () {
         return runServer(TEST_DATABASE_URL);
@@ -191,17 +189,16 @@ describe('Reviews API resource', function () {
         return closeServer();
     });
 
-    describe('GET endpoint', function() {
-        it("should get 200 status and html", function () {
-            return chai
-                .request(app)
-                .get("/")
-                .then(function (res) {
-                    res.should.have.status(200);
-                    res.should.be.html;
-                });
-               
-        });
+    // describe('GET endpoint', function() {
+    //     it("should get 200 status and html", function () {
+    //         return chai
+    //             .request(app)
+    //             .get("/")
+    //             .then(function (res) {
+    //                 res.should.have.status(200);
+    //                 res.should.be.html;
+    //             });
+    //     });
 
         it("should return all users", function () {
             let res;
