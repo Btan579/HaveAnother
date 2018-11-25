@@ -17,16 +17,16 @@ const HTMLRenderer = {
     displayAllReviews: (data) => {
         let allReviews = [];
         console.log(data);
-        // for (let i = 0; i < data.length; i++) {
-        //     $('.filtered-reviews').append('<div class="container"><div class="row"><div class="col-md-5 col-md-offset-6"><div class="filtered-review"><h6>Beer name:</h6><p>' + MOCK_REVIEWS[i].beerName +
-        //         '</p><h6>Brewery:</h6><p>' + data[i].breweryName +
-        //         '</p><h6>Style:</h6><p>' + data[i].beerStyle +
-        //         '</p><h6>Description:</h6><p>' + data[i].beerDescrip +
-        //         '</p><h6>have another: </h6><p>' + data[i].haveAnother +
-        //         '</p><h6>Reviewer:</h6><p>' + data[i].user + '</p></div></div></div></div>')
+        for (let i = 0; i < data.length; i++) {
+            $('.filtered-reviews').append('<div class="container"><div class="row"><div class="col-md-5 col-md-offset-6"><div class="filtered-review"><h6>Beer name:</h6><p>' + MOCK_REVIEWS[i].beerName +
+                '</p><h6>Brewery:</h6><p>' + data[i].breweryName +
+                '</p><h6>Style:</h6><p>' + data[i].beerStyle +
+                '</p><h6>Description:</h6><p>' + data[i].beerDescrip +
+                '</p><h6>have another: </h6><p>' + data[i].haveAnother +
+                '</p><h6>Reviewer:</h6><p>' + data[i].user + '</p></div></div></div></div>')
 
-        // }
-       
+        }
+        console.log(data);
     }
 
     // displayBeerStyle: (data) => {
