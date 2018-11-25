@@ -32,36 +32,36 @@ mongoose.Promise = global.Promise;
 
 let server;
 
-// function runServer() {
-//     const port = process.env.PORT || 8080;
-//     return new Promise((resolve, reject) => {
-//         server = app.listen(port, () => {
-//             console.log(`Your app is listening on port ${port}`);
-//             resolve(server);
-//         }).on('error', err => {
-//             reject(err)
-//         });
-//     });
-// }
-
-function runServer(databaseUrl, port = PORT) {
-
+function runServer() {
+    const port = process.env.PORT || 8080;
     return new Promise((resolve, reject) => {
-        mongoose.connect(databaseUrl, err => {
-            if (err) {
-                return reject(err);
-            }
-            server = app.listen(port, () => {
-                    console.log(`Your app is listening on port ${port}`);
-                    resolve();
-                })
-                .on('error', err => {
-                    mongoose.disconnect();
-                    reject(err);
-                });
+        server = app.listen(port, () => {
+            console.log(`Your app is listening on port ${port}`);
+            resolve(server);
+        }).on('error', err => {
+            reject(err)
         });
     });
 }
+
+// function runServer(databaseUrl, port = PORT) {
+
+//     return new Promise((resolve, reject) => {
+//         mongoose.connect(databaseUrl, err => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             server = app.listen(port, () => {
+//                     console.log(`Your app is listening on port ${port}`);
+//                     resolve();
+//                 })
+//                 .on('error', err => {
+//                     mongoose.disconnect();
+//                     reject(err);
+//                 });
+//         });
+//     });
+// }
 
 // this function closes the server, and returns a promise. we'll
 // use it in our integration tests later.
