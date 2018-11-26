@@ -1,5 +1,25 @@
-{"_id":{"$oid":"5ba7273a424e974a5cbfdf7f"},"beer":{"$oid":"5ba71e0f45d1a30868ad3d09"},"comment":"This is not wicked","haveAnother":false,"__v":0}
-{"_id":{"$oid":"5ba86815e1b7a947c409a263"},"beer":{"$oid":"5ba865d5e1b7a947c409a25f"},"comment":"This is neat","haveAnother":true,"__v":0}
-{"_id":{"$oid":"5ba86841e1b7a947c409a264"},"beer":{"$oid":"5ba866e0e1b7a947c409a260"},"comment":"This is the neatest beer","haveAnother":true,"__v":0}
-{"_id":{"$oid":"5ba86863e1b7a947c409a265"},"beer":{"$oid":"5ba86756e1b7a947c409a261"},"comment":"Tree house does it again","haveAnother":true,"__v":0}
-{"_id":{"$oid":"5ba8688ee1b7a947c409a266"},"beer":{"$oid":"5ba867b2e1b7a947c409a262"},"comment":"Warm citrus","haveAnother":true,"__v":0}
+{"_id":{"$oid":"5bd63f9bb08a6c5dac051e25"},"beer":{"$oid":"5bd63a26c9e0a26aac9e0d73"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd63fbab08a6c5dac051e27"},"beer":{"$oid":"5bd63abbc9e0a26aac9e0d75"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd63fc3b08a6c5dac051e29"},"beer":{"$oid":"5bd63b3fc9e0a26aac9e0d76"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd63fd9b08a6c5dac051e2b"},"beer":{"$oid":"5bd63e28c9e0a26aac9e0d7b"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd63fe9b08a6c5dac051e2d"},"beer":{"$oid":"5bd63e5ac9e0a26aac9e0d7d"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7a7db1ad4f431386d31af"},"beer":{"$oid":"5bd63a26c9e0a26aac9e0d73"},"haveAnother":true,"comment":"So hoppy!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7a8831ad4f431386d31b1"},"beer":{"$oid":"5bd63ec3c9e0a26aac9e0d81"},"haveAnother":true,"comment":"There needs to be more beer like this!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7ac001ad4f431386d31b7"},"beer":{"$oid":"5ba6e9c0c79f231224fe0f6f"},"haveAnother":true,"comment":"My favorite pumpkin beer!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7ad205461a07628cad0a5"},"beer":{"$oid":"5bd63eacc9e0a26aac9e0d80"},"haveAnother":true,"comment":"My favorite pumpkin beer!","user":{"$oid":"5ba6e9c0c79f231224fe0f6f"},"__v":0}
+{"_id":{"$oid":"5bd7ad465461a07628cad0a7"},"beer":{"$oid":"5bd63eacc9e0a26aac9e0d80"},"haveAnother":false,"comment":"Pumpkin beer is gross!","user":{"$oid":"5bd7a91d1ad4f431386d31b5"},"__v":0}
+{"_id":{"$oid":"5bd7ad685461a07628cad0a9"},"beer":{"$oid":"5bd63eacc9e0a26aac9e0d80"},"haveAnother":true,"comment":"Pumpkin beer is okay","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bd7adce5461a07628cad0ab"},"beer":{"$oid":"5bd63e7fc9e0a26aac9e0d7f"},"haveAnother":true,"comment":"In the running for favorite pumpkin beer","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bd7adea5461a07628cad0ad"},"beer":{"$oid":"5bd63e7fc9e0a26aac9e0d7f"},"haveAnother":true,"comment":"I'll drink anything UFO brews","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7af095461a07628cad0af"},"beer":{"$oid":"5bd63dd2c9e0a26aac9e0d7a"},"haveAnother":true,"comment":"I almost want to love this beer","user":{"$oid":"5ba6e9c0c79f231224fe0f6f"},"__v":0}
+{"_id":{"$oid":"5bd7af525461a07628cad0b1"},"beer":{"$oid":"5bd63d96c9e0a26aac9e0d79"},"haveAnother":false,"comment":"Not as good as it should be","user":{"$oid":"5ba6e9c0c79f231224fe0f6f"},"__v":0}
+{"_id":{"$oid":"5bd7af825461a07628cad0b3"},"beer":{"$oid":"5bd63d96c9e0a26aac9e0d79"},"haveAnother":true,"comment":"Hard to find in MA =)","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bd7b79723e2bd69b47bbe31"},"beer":{"$oid":"5bd63d3bc9e0a26aac9e0d78"},"haveAnother":true,"comment":"My got to IPA","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7b8ca23e2bd69b47bbe33"},"beer":{"$oid":"5bd63898c9e0a26aac9e0d6f"},"haveAnother":true,"comment":"Thats some stout!","user":{"$oid":"5ba6e716e8241829201dcc22"},"__v":0}
+{"_id":{"$oid":"5bd7b91123e2bd69b47bbe35"},"beer":{"$oid":"5bd7a91d1ad4f431386d31b5"},"haveAnother":true,"comment":"Had a sample of this, sad I can't get it all the time","user":{"$oid":"5bd7a91d1ad4f431386d31b5"},"__v":0}
+{"_id":{"$oid":"5bd7bf18d40b7d30bcfc2546"},"beer":{"$oid":"5bd63d96c9e0a26aac9e0d79"},"haveAnother":true,"comment":"Hard to find in MA =)","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bf0ea3e62f7d0451867ea3e"},"beer":{"$oid":"5bd63898c9e0a26aac9e0d6f"},"haveAnother":true,"comment":"special","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bf0ebb662f7d0451867ea3f"},"beer":{"$oid":"5bd63898c9e0a26aac9e0d6f"},"haveAnother":true,"comment":"amazing","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bf0ebc562f7d0451867ea40"},"beer":{"$oid":"5bd63898c9e0a26aac9e0d6f"},"haveAnother":true,"comment":"the best","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bf5e1e252b00836448bf4c7"},"beer":{"$oid":"5bf5e1ca52b00836448bf4c6"},"haveAnother":true,"comment":"the best","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}
+{"_id":{"$oid":"5bf5e1ea52b00836448bf4c8"},"beer":{"$oid":"5bf5e1ca52b00836448bf4c6"},"haveAnother":true,"comment":"amazing","user":{"$oid":"5bd7a93a1ad4f431386d31b6"},"__v":0}

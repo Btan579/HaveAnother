@@ -115,3 +115,5 @@
 {"_id":{"$oid":"5ba6d4080812ed470102ab7f"},"name":"Wood and Barrel"}
 {"_id":{"$oid":"5ba6d4080812ed470102ab80"},"name":"None"}
 {"_id":{"$oid":"5ba6d476eaf62f259cda247c"},"name":"Amber Ale","__v":0}
+{"_id":{"$oid":"5bb97482a1ba6549ccf4d2f8"},"name":"Ale","__v":0}
+{"_id":{"$oid":"5bd63aabc9e0a26aac9e0d74"},"name":"Imperial India Pale Ale","__v":0}

@@ -21,3 +21,6 @@
 {"_id":{"$oid":"5ba6c6a37deaad1410cb5605"},"name":"Strong","__v":0}
 {"_id":{"$oid":"5ba6c6a97deaad1410cb5606"},"name":"None","__v":0}
 {"_id":{"$oid":"5ba705a9ac95c72aa4e0ec58"},"name":"New England","__v":0}
+{"_id":{"$oid":"5bb97557a1ba6549ccf4d2f9"},"name":"Pumpkin","__v":0}
+{"_id":{"$oid":"5bbbba87d0dddc3e10cd6e9f"},"name":"Black","__v":0}
+{"_id":{"$oid":"5bd638f8c9e0a26aac9e0d70"},"name":"Russian","__v":0}
