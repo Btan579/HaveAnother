@@ -218,27 +218,7 @@ const EventListeners = {
     },
 
     beerStyleSelect: function () {
-        $('.beerDropDown').on("change", function (event) { 
-            let beerReviews =[];
-        //    console.log($('#beerDrop option[attr]'.val()));
-            var selected = $(this).find('option:selected');
-            // console.log(selected.attr('reviews'));
-            let selectedReviews = selected.attr('reviews');
-            beerReviews.push(selectedReviews);
-            console.log(beerReviews);
-
-            // for(var i = 0; i < beerReviews.length; i++){
-                $.ajax({
-                    method: "GET",
-                    url: `/reviews/${selectedReviews}`,
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(data => {
-                    console.log(data.reviews);
-
-                });
-            // }
+        $('.beerDropDown').on("click", function (event) { 
            
         });
             
@@ -287,19 +267,7 @@ const App = {
     },
 
     // Display All Reviews   
-    getBeerReviews: () => {
-        $('#beerDropDown').on('change', "#beerDrop", e => {
-            $.ajax({
-                method: "GET",
-                url: "/reviews",
-                contentType: "application/json",
-                data: JSON.stringify({username: username, password: password})
-            })
-            .done(function (result) {
-                HTMLRenderer.showSection(".home");
-            });           
-        });
-    },
+
 
     getAndDisplayAllReviews: () => {
         App.getAllReviews(HTMLRenderer.displayAllReviews);
@@ -314,29 +282,26 @@ const App = {
 
     },
     
-    generateBeerDropDowns: () => {
+    generateDropDowns: () => {
         $('select[data-source]').each(function () {
             var $select = $(this);
 
             $select.append('<option></option>');
 
             $.ajax({
-                method: "GET",
-                url: $select.attr('data-source'),
-                contentType: "application/json",
-                dataType: "json"
+                    url: $select.attr('data-source'),
                 })
                 .then(function (options) {
                     console.log(options);
-                    options.beers.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-                            .attr('reviews', option.reviews.toString());
+                    // options.map(function (option) {
+                    //     var $option = $('<option>');
 
-                        $select.append($option);
-                    });
+                    //     $option
+                    //         .val(option[$select.attr('data-valueKey')])
+                    //         .text(option[$select.attr('data-displayKey')]);
+
+                    //     $select.append($option);
+                    // });
                 });
         });
     }
@@ -368,7 +333,7 @@ const App = {
 // $(App.reset());
 
 $(function () {
-    App.generateBeerDropDowns();
+    App.generateDropDowns();
     App.getAndDisplayAllReviews();
     // App.generateBeerDrop();
     // App.filterBeerStyles();

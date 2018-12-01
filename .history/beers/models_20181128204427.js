@@ -38,10 +38,7 @@ beerSchema.methods.serialize = function () {
     };
 };
 
-beerSchema.pre('find', function(next){
-    this.populate('Category');
-    next();
-});
+beerSchema.pre('find')
 
 
 const Beer = mongoose.model('beer', beerSchema);

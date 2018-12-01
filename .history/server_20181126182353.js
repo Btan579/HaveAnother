@@ -17,11 +17,11 @@ app.use(express.static("public"));
 app.use(morgan("common"));
 app.use(express.json());
 
-app.use("/reviews", reviewsRouter);
-app.use("/users", usersRouter);
-app.use("/beers", beersRouter);
-app.use("/styles", stylesRouter);
-app.use("/categories", categoriesRouter);
+app.use("/reviews/", reviewsRouter);
+app.use("/users/", usersRouter);
+app.use("/beers/", beersRouter);
+app.use("/styles/", stylesRouter);
+app.use("/categories/", categoriesRouter);
 
 const {
     PORT,

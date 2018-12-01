@@ -218,27 +218,7 @@ const EventListeners = {
     },
 
     beerStyleSelect: function () {
-        $('.beerDropDown').on("change", function (event) { 
-            let beerReviews =[];
-        //    console.log($('#beerDrop option[attr]'.val()));
-            var selected = $(this).find('option:selected');
-            // console.log(selected.attr('reviews'));
-            let selectedReviews = selected.attr('reviews');
-            beerReviews.push(selectedReviews);
-            console.log(beerReviews);
-
-            // for(var i = 0; i < beerReviews.length; i++){
-                $.ajax({
-                    method: "GET",
-                    url: `/reviews/${selectedReviews}`,
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(data => {
-                    console.log(data.reviews);
-
-                });
-            // }
+        $('.beerDropDown').on("click", function (event) { 
            
         });
             
@@ -297,8 +277,9 @@ const App = {
             })
             .done(function (result) {
                 HTMLRenderer.showSection(".home");
-            });           
-        });
+            })
+                },
+        }
     },
 
     getAndDisplayAllReviews: () => {
@@ -332,8 +313,8 @@ const App = {
                         var $option = $('<option>');
                         $option
                             .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-                            .attr('reviews', option.reviews.toString());
+                            .text(option[$select.attr('data-displayKey')]);
+                            .data('reviews', option.reviews.map(review => {return review;}))
 
                         $select.append($option);
                     });

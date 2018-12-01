@@ -53,12 +53,11 @@ router.get("/:reviewIdsCsv", (req, res) => {
         .find({'_id':{$in: arrReviewIds}})
         .then(reviews => {
             let beerId = reviews[0].beer;
-            Beer.findOne({'_id': beerId})
-            .populate('Category')
-            .exec((err, beer) => {
+            Beer.find({'_id': beerId}, function(err, beer) {
+                console.log(err);
                 console.log(beer);
                 res.json({
-                    beer: beer,
+                    beer: beer.serialize(),
                     reviews: reviews.map(
                         (review) => {
                             return review.serialize();

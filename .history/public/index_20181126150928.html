@@ -49,16 +49,13 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="beerDropDown" id="beerDropDown">
+                                            <div class="dropdown">
                                                 <form>
                                                     <div class="form-group">
                                                         <label for="beerDrop">Select a beer</label>
-                                                        <select name="beerDrop" id="beerDrop"
-                                                        data-source="/beers" 
-                                                        data-valueKey="_id" 
-                                                        data-displayKey="name">
-                                                        </select>
-                                                    </div>
+                                                        <select name="beerDrop" id="beerDrop" class="form-control" data-source="/beers/" 
+                                                            data-valueKey="name" data-displayKey="name"></select>
+                                                    </div><!-- /form-group -->
                                                     <button class="btn btn-primary" type="submit">Go</button>
                                                 </form>
                                             </div>

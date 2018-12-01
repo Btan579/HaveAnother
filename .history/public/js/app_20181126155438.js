@@ -218,28 +218,28 @@ const EventListeners = {
     },
 
     beerStyleSelect: function () {
-        $('.beerDropDown').on("change", function (event) { 
-            let beerReviews =[];
-        //    console.log($('#beerDrop option[attr]'.val()));
-            var selected = $(this).find('option:selected');
-            // console.log(selected.attr('reviews'));
-            let selectedReviews = selected.attr('reviews');
-            beerReviews.push(selectedReviews);
-            console.log(beerReviews);
+        $('.beerDropDown').on("click", function (event) { 
+            $('select[data-source]').each(function () {
+                    var $select = $(this);
 
-            // for(var i = 0; i < beerReviews.length; i++){
-                $.ajax({
-                    method: "GET",
-                    url: `/reviews/${selectedReviews}`,
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(data => {
-                    console.log(data.reviews);
+                    $select.append('<option></option>');
 
-                });
-            // }
-           
+                    $.ajax({
+                            method: 'GET',
+                            url: $select.attr('data-source'),
+                        })
+                        .then(function (options) {
+                            options.map(function (option) {
+                                var $option = $('<option>');
+
+                                $option
+                                    .val(option[$select.attr('data-valueKey')])
+                                    .text(option[$select.attr('data-displayKey')]);
+
+                                $select.append($option);
+                            });
+                        });
+            });
         });
             
 
@@ -287,19 +287,7 @@ const App = {
     },
 
     // Display All Reviews   
-    getBeerReviews: () => {
-        $('#beerDropDown').on('change', "#beerDrop", e => {
-            $.ajax({
-                method: "GET",
-                url: "/reviews",
-                contentType: "application/json",
-                data: JSON.stringify({username: username, password: password})
-            })
-            .done(function (result) {
-                HTMLRenderer.showSection(".home");
-            });           
-        });
-    },
+
 
     getAndDisplayAllReviews: () => {
         App.getAllReviews(HTMLRenderer.displayAllReviews);
@@ -313,40 +301,12 @@ const App = {
         HTMLRenderer.showSection(".landing");
 
     },
-    
-    generateBeerDropDowns: () => {
-        $('select[data-source]').each(function () {
-            var $select = $(this);
 
-            $select.append('<option></option>');
+    generateBeerDrop: function () {
+        $('#beerDropdown').load('js/beer-style-drop-items.html');
+        $('#beer-style').load('js/beer-styles-new-reviews.html');
 
-            $.ajax({
-                method: "GET",
-                url: $select.attr('data-source'),
-                contentType: "application/json",
-                dataType: "json"
-                })
-                .then(function (options) {
-                    console.log(options);
-                    options.beers.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-                            .attr('reviews', option.reviews.toString());
-
-                        $select.append($option);
-                    });
-                });
-        });
-    }
-     
-
-    // generateBeerDrop: function () {
-    //     $('#beerDropdown').load('js/beer-style-drop-items.html');
-    //     $('#beer-style').load('js/beer-styles-new-reviews.html');
-
-    // },
+    },
 
   
 
@@ -368,9 +328,8 @@ const App = {
 // $(App.reset());
 
 $(function () {
-    App.generateBeerDropDowns();
     App.getAndDisplayAllReviews();
-    // App.generateBeerDrop();
+    App.generateBeerDrop();
     // App.filterBeerStyles();
     EventListeners.startListeners();
     

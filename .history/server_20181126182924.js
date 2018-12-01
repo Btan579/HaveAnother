@@ -13,7 +13,7 @@ const { categoriesRouter } = require("./categories/router");
 
 const app = express();
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 app.use(morgan("common"));
 app.use(express.json());
 

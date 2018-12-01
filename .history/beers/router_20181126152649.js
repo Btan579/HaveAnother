@@ -90,9 +90,9 @@ router.post('/', (req, res) => {
         });
 });
 
-// router.use('*', function (req, res) {
-//     res.status(404).json({message: 'Not Found'});
-// });
+router.use('*', function (req, res) {
+    res.status(404).json({message: 'Not Found'});
+});
 
 const beersRouter = router;
 module.exports = { beersRouter };

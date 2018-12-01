@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     Beer
         .find()
         .then(beers => {
+            console.log(beers);
             return res.status(200).json({
                 beers: beers
             });
@@ -90,9 +91,9 @@ router.post('/', (req, res) => {
         });
 });
 
-// router.use('*', function (req, res) {
-//     res.status(404).json({message: 'Not Found'});
-// });
+router.use('*', function (req, res) {
+    res.status(404).json({message: 'Not Found'});
+});
 
 const beersRouter = router;
 module.exports = { beersRouter };
