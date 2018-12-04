@@ -378,8 +378,8 @@ const App = {
                         dataType: "json"
                     })
                     .then(function (options) {
-                        console.log(options);
-                        options.categorys.map(function (option) {
+                        // console.log(options);
+                        options.categories.map(function (option) {
                             var $option = $('<option>');
                             $option
                                 .val(option[$select.attr('data-valueKey')])

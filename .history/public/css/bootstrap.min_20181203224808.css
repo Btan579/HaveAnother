@@ -1157,8 +1157,7 @@ select,
 textarea {
     font-family: inherit;
     font-size: inherit;
-    line-height: inherit;
-    color: #121212;
+    line-height: inherit
 }
 
 a {
@@ -2832,7 +2831,7 @@ label {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: 400;
+    font-weight: 700;
     color: #fff;
 }
 
@@ -2956,22 +2955,7 @@ input[type=search] {
 }
 
 .form-group {
-    margin-bottom: 15px;
-    background-color: rgba(250, 250, 250, 0.1);
-    transition: all 0.5s;
-    text-align: left;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #fff;
-    font-size: 17px;
-    font-weight: 400;
-    display: inline-block;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    padding-left: 20px;
-
+    margin-bottom: 15px
 }
 
 .radio,

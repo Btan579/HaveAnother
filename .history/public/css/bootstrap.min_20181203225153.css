@@ -1157,8 +1157,7 @@ select,
 textarea {
     font-family: inherit;
     font-size: inherit;
-    line-height: inherit;
-    color: #121212;
+    line-height: inherit
 }
 
 a {

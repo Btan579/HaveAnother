@@ -227,7 +227,7 @@ const EventListeners = {
             beerReviews.push(selectedReviews);
             console.log(beerReviews);
 
-            
+            // for(var i = 0; i < beerReviews.length; i++){
                 $.ajax({
                     method: "GET",
                     url: `/reviews/${selectedReviews}`,
@@ -239,38 +239,28 @@ const EventListeners = {
                    HTMLRenderer.displayAllReviews(data);
 
                 });
+            // }
            
         });
+            
+
+        //    $('#beerDropdown').change(function () {
+            // function getSelectedStyle(data) {
+            //     let selectEntries = [];
+            //     console.log(data);
+            //     if (data) {
+            //         data.forEach(function(item) {
+            //             if (item.beerStyle === selectedStyle) {
+            //                 selectEntries.push(item);
+            //             }
+            //         });
+            //     };
+            //     HTMLRenderer.displayAllReviews(selectEntries);
+            // }
+        // }); 
         
-    },
+    }
 
-    // reviewStyleSelect: function () {
-    //     $('.beerDropDown').on("change", function (event) {
-    //         let beerReviews = [];
-    //         //    console.log($('#beerDrop option[attr]'.val()));
-    //         var selected = $(this).find('option:selected');
-    //         // console.log(selected.attr('reviews'));
-    //         let selectedReviews = selected.attr('reviews');
-    //         beerReviews.push(selectedReviews);
-    //         console.log(beerReviews);
-
-    //         // for(var i = 0; i < beerReviews.length; i++){
-    //         $.ajax({
-    //                 method: "GET",
-    //                 url: `/reviews/${selectedReviews}`,
-    //                 contentType: "application/json",
-    //                 dataType: "json"
-    //             })
-    //             .then(data => {
-    //                 console.log(data.reviews);
-    //                 HTMLRenderer.displayAllReviews(data);
-
-    //             });
-    //         // }
-
-    //     });
-
-    // }
 
 
 
@@ -313,7 +303,7 @@ const App = {
     },
     
     generateBeerDropDowns: () => {
-        $('#beerDrop, select[data-source]').each(function () {
+        $('select[data-source]').each(function () {
             var $select = $(this);
 
             $select.append('<option></option>');
@@ -325,7 +315,7 @@ const App = {
                 dataType: "json"
                 })
                 .then(function (options) {
-                    // console.log(options);
+                    console.log(options);
                     options.beers.map(function (option) {
                         var $option = $('<option>');
                         $option
@@ -337,59 +327,8 @@ const App = {
                     });
                 });
         });
-    },
-
-    generateStyleDropDowns: () => {
-        $('#beerStyleDrop, select[data-source]').each(function () {
-            var $select = $(this);
-
-            $select.append('<option></option>');
-
-            $.ajax({
-                    method: "GET",
-                    url: $select.attr('data-source'),
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(function (options) {
-                    // console.log(options);
-                    options.styles.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-
-                        $select.append($option);
-                    });
-                });
-        });
-    },
+    }
      
-    generateCateDropDowns: () => {
-            $('#beerCateDrop, select[data-source]').each(function () {
-                var $select = $(this);
-
-                $select.append('<option></option>');
-
-                $.ajax({
-                        method: "GET",
-                        url: $select.attr('data-source'),
-                        contentType: "application/json",
-                        dataType: "json"
-                    })
-                    .then(function (options) {
-                        console.log(options);
-                        options.categorys.map(function (option) {
-                            var $option = $('<option>');
-                            $option
-                                .val(option[$select.attr('data-valueKey')])
-                                .text(option[$select.attr('data-displayKey')])
-
-                            $select.append($option);
-                        });
-                    });
-            });
-        }
         // signupUser: function(username, password) {
         //     $.ajax({
         //         method: "POST",
@@ -430,8 +369,6 @@ const App = {
 
 $(function () {
     App.generateBeerDropDowns();
-    App.generateStyleDropDowns();
-    App.generateCateDropDowns();
     // App.getAndDisplayAllReviews();
     // App.generateBeerDrop();
     // App.filterBeerStyles();

@@ -379,7 +379,7 @@ const App = {
                     })
                     .then(function (options) {
                         console.log(options);
-                        options.categorys.map(function (option) {
+                        options.categories.map(function (option) {
                             var $option = $('<option>');
                             $option
                                 .val(option[$select.attr('data-valueKey')])

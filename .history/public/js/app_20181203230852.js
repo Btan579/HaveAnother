@@ -313,7 +313,7 @@ const App = {
     },
     
     generateBeerDropDowns: () => {
-        $('#beerDrop, select[data-source]').each(function () {
+        $('select[data-source]').each(function () {
             var $select = $(this);
 
             $select.append('<option></option>');
@@ -325,7 +325,7 @@ const App = {
                 dataType: "json"
                 })
                 .then(function (options) {
-                    // console.log(options);
+                    console.log(options);
                     options.beers.map(function (option) {
                         var $option = $('<option>');
                         $option
@@ -337,59 +337,8 @@ const App = {
                     });
                 });
         });
-    },
-
-    generateStyleDropDowns: () => {
-        $('#beerStyleDrop, select[data-source]').each(function () {
-            var $select = $(this);
-
-            $select.append('<option></option>');
-
-            $.ajax({
-                    method: "GET",
-                    url: $select.attr('data-source'),
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(function (options) {
-                    // console.log(options);
-                    options.styles.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-
-                        $select.append($option);
-                    });
-                });
-        });
-    },
+    }
      
-    generateCateDropDowns: () => {
-            $('#beerCateDrop, select[data-source]').each(function () {
-                var $select = $(this);
-
-                $select.append('<option></option>');
-
-                $.ajax({
-                        method: "GET",
-                        url: $select.attr('data-source'),
-                        contentType: "application/json",
-                        dataType: "json"
-                    })
-                    .then(function (options) {
-                        console.log(options);
-                        options.categorys.map(function (option) {
-                            var $option = $('<option>');
-                            $option
-                                .val(option[$select.attr('data-valueKey')])
-                                .text(option[$select.attr('data-displayKey')])
-
-                            $select.append($option);
-                        });
-                    });
-            });
-        }
         // signupUser: function(username, password) {
         //     $.ajax({
         //         method: "POST",
@@ -430,8 +379,6 @@ const App = {
 
 $(function () {
     App.generateBeerDropDowns();
-    App.generateStyleDropDowns();
-    App.generateCateDropDowns();
     // App.getAndDisplayAllReviews();
     // App.generateBeerDrop();
     // App.filterBeerStyles();

@@ -378,8 +378,8 @@ const App = {
                         dataType: "json"
                     })
                     .then(function (options) {
-                        console.log(options);
-                        options.categorys.map(function (option) {
+                        // console.log(options);
+                        options.categories.map(function (option) {
                             var $option = $('<option>');
                             $option
                                 .val(option[$select.attr('data-valueKey')])
@@ -389,7 +389,6 @@ const App = {
                         });
                     });
             });
-        }
         // signupUser: function(username, password) {
         //     $.ajax({
         //         method: "POST",
@@ -431,7 +430,6 @@ const App = {
 $(function () {
     App.generateBeerDropDowns();
     App.generateStyleDropDowns();
-    App.generateCateDropDowns();
     // App.getAndDisplayAllReviews();
     // App.generateBeerDrop();
     // App.filterBeerStyles();
