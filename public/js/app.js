@@ -1,445 +1,682 @@
-let state = {
-    
-    reviews: {}
+state = {
+    noReviews: null,
+    currentUser: "",
+    currentUserId: "",
+     newLogin: true,
+    // selectedUsers: [],
+    // selectedUsersArr: []
 };
-
 
 const HTMLRenderer = {
     showSection: function (sectionToShow) {
-        const sections = [".logged-status", ".submit-form", ".filtered-reviews", ".home-cont"];
+        const sections = [".logged-status", ".submit-form-beer-cont", ".filtered-reviews-cont", ".home-cont"];
         sections.forEach(function (item, index) {
             $(item).addClass("hidden");
         });
         $(sectionToShow).removeClass("hidden");
 
     },
-    
-    displayAllReviews: (data) => {
-        console.log(data);
-        $('.filtered-reviews').empty();
-        $('.filtered-reviews').append('<div class="container"><div class="row"><div class="col-md-5 col-md-offset-6"><div class="filtered-review"><h6>Beer name:</h6><p>' + data.beer.name +
-            '</p><h6>Brewery:</h6><p>' + data.beer.brewery +
-            '</p><h6>Category:</h6><p>' + data.beer.category +
-            '</p><h6>Style:</h6><p>' + data.beer.style + '</p></div></div></div></div>')
 
-        for (let i = 0; i < data.reviews.length; i++) {
-            $('.filtered-reviews').append('<div class="container"><div class="row"><div class="col-md-5 col-md-offset-6"><div class="filtered-review"></p><h6>Reviewer:</h6><p>' + data.reviews[i].user + 
-            '</p><h6>Comment:</h6><p>' + data.reviews[i].comment +
-            '</p><h6>have another: </h6><p>' + data.reviews[i].haveAnother + '</div></div></div></div>')
+    displayFilteredReviews: (data) => {
+      
+        if (state.noReviews) {
+            $(".filtered-reviews-cont").removeClass("hidden");
+            $('.filtered-reviews-cont').empty();
+            $('.filtered-reviews-cont').append('<h4>There are currently <em>no</em> reviews for this beer.</em><h4>');
+        } else {
+            $(".filtered-reviews-cont").removeClass("hidden");
+            $('.filtered-reviews-cont').empty();
+            $('.filtered-reviews-cont').append('<button type="button" id="close-review" class="btn">X</button>' + '<div id="filtered-beer"><h4>' + data.beer.name +
+                '</h4><h4>' + data.beer.style +
+                '</h4><h4>' + data.beer.category +
+                '</h4><h4><em>Brewed by </em>' + data.beer.brewery + '</div>');
+for (let i = 0; i < data.reviews.length; i++) {
+    
+    if (data.reviews[i].haveAnother) {
+        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+            '</p><h6>Comment: </h6><p>' + data.reviews[i].comment  +
+            '</p><h6>Have another?: </h6><p>' + " I'll have another! " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '"><a href="#" class="edit-link" >Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name = "edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">'+ "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel" >Cancel</button></fieldset></form></div></div>');
+        window.scrollTo(0, 0);
+    } else {
+        window.scrollTo(0, 0);
+        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+            '</p><h6>Comment: </h6><p>' + data.reviews[i].comment +
+            '</p><h6>Have another?: </h6><p>' + " Nah " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '"><a href="#" class="edit-link">Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name="edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel">Cancel</button></fieldset></form></div></div>');
+    }
+            }
         }
+
+    },
+
+    displayUserInfo: function () {
+        $(".greeting").html(`Hi, ${state.currentUser}!`);
+    },
+
+    hideUserInfo: function () {
+        $(".greeting").addClass("hidden");
+    },
+
+    showAlert: function (alert) {
+        const displayTime = 2000;
+
+        $(alert).prop("hidden", false);
+        setTimeout(function () {
+            $(alert).prop("hidden", true);
+        }, displayTime);
+
+        window.scrollTo(0, 0);
+    },
+
+    showError: function (error) {
+        const displayTime = 2000;
+
+        $(".error").text(error);
+
+        $(".error").prop("hidden", false);
+        setTimeout(function () {
+            $(".error").prop("hidden", true);
+        }, displayTime);
+
+        window.scrollTo(0, 0);
     }
 
-    // displayBeerStyle: (data) => {
-
-    // }
 
 };
 
 
 const EventListeners = {
     listenersStarted: false,
-
     startListeners: function () {
         if (!this.listenersStarted) {
-            this.newReviewClick();
-            this.reviewSubmit();
-            this.reviewCancel();
-            this.handleSignUpSubmit();
-            this.handleLoginSubmit();
-            this.handleSignUpLink();
-            this.handleLoginLink();
-            this.handleLogout();
-            this.loginCancel();
-            this.signupCancel();
+            this.newBeerClick();
+            this.newBeerSubmit();
+            this.beerCancel();
             this.beerStyleSelect();
+            this.newReviewClick();
+            this.reviewCancel();
+            this.newReviewSubmit();
+            this.toggleBeerDropSelect();
+            this.handleSignUpLink();
+            this.handleSignupCancel();
+            this.handleSignUpSubmit();
+            this.handleLogOutLink();
+            this.handleLoginLinkPrimary();
+            this.handleLoginSubmit();
+            this.handleLoginCancel();
+            this.showPassClickSignup();
+            this.showPassClickLogin();
+            this.editReviewCancel();
+            this.editReviewClick();
+            this.editReviewSubmit();
+            this.deleteReviewClick();
+            this.reviewClose();
             this.listenersStarted = true;
         }
     },
 
-
-
-    handleSignUpLink: function () {
-        $(".register-link").on("click", function (event) {
-            $(".page-heading").removeClass("hidden");
-            $(".home-main").addClass("hidden");
-            $(".signup-cont").removeClass("hidden");
-
-
-
+    newBeerClick: function () {
+        $(".new-beer-link").on("click", function (event) {
+            event.preventDefault();
+            $(".submit-form-beer-cont").removeClass("hidden");
+            App.generateStyleDropDowns();
+            App.generateCateDropDowns();
         });
     },
 
-    handleLoginLink: function () {
-        $(".login-link").on("click", function (event) {
-            $(".page-heading").removeClass("hidden");
-            $(".home-main").addClass("hidden");
-            $(".login-cont").removeClass("hidden");
-
+    beerCancel: function () {
+        $("#cancel-beer").on("click", function () {
+            $("#form-submit-beer").trigger('reset');
+            $(".submit-form-beer-cont").addClass("hidden");
         });
+
     },
-    // Submit new review 
 
     newReviewClick: function () {
-        $(".new-Review").on("click", function () {
+        $(".new-review-link").on("click", function (event) {
             event.preventDefault();
-            console.log("clicked");
-            $(".submit-form").removeClass("hidden");
+            $(".submit-form-review-cont").removeClass("hidden");
+            App.generateBeersDropDownNewReview();
+
+
         });
-    },
-
-    reviewSubmit: function () {
-        $("#form-submit").submit(function (event) {
-            event.preventDefault();
-            const beerInput = $(this).find("#beer-name").val();
-            const breweryInput = $(this).find("#brewery").val();
-            const beerStyleInput = $(this).find("#beer-style").val();
-            const beerDescriptionInput = $(this).find("#beer-description").val();
-            const haveAnotherInput = $(this).find("#have-another").val();
-            const notHaveAnotherInput = $(this).find("#not-another").val();
-
-            console.log(haveAnotherInput.checked = true);
-            console.log(notHaveAnotherInput);
-            // let haveAnotherchecked;
-
-            if (haveAnotherInput.checked = true) {
-                haveAnotherchecked = "I'll Have another!";
-            } else {
-                haveAnotherchecked = "Nah";
-            }
-            // Generate Review ID
-            // const newPostID = Math.random().toString(36).substr(2, 16);
-            // New Review Schema  
-            const newBeerReview = {
-                beerName: beerInput,
-                breweryName: breweryInput,
-                beerStyle: beerStyleInput,
-                beerDescrip: beerDescriptionInput,
-                haveAnother: haveAnotherchecked,
-                user: 'user'
-             };
-
-            MOCK_REVIEWS.push(newBeerReview);
-            $(".submit-form").addClass("hidden");
-            App.getAndDisplayBeerReviews();
-            $("#form-submit").trigger('reset');
-
-            console.log(beerInput, breweryInput, beerStyleInput, beerDescriptionInput, haveAnotherchecked);
-            console.log(MOCK_REVIEWS);
-        });
-
     },
 
     reviewCancel: function () {
-        $(".cancel").on("click", function () {
-            $(".submit-form").addClass("hidden");
-
+        $("#cancel-new-review").on("click", function () {
+            $("#form-submit-new-review").trigger('reset');
+            $(".submit-form-review-cont").addClass("hidden");
         });
 
     },
 
-    signupCancel: function () {
+    newBeerSubmit: function () {
+        $("#form-submit-beer").submit(function (event) {
+            event.preventDefault();
+            const beerName = $(this).find("#new-beer-name").val();
+            const breweryInput = $(this).find("#new-brewery").val();
+            const beerStyleInput = $(this).find("#styleDropNewBeer").val();
+            const beerCateInput = $(this).find("#cateDropNewBeer").val();
+
+            const newBeer = {
+                name: beerName,
+                brewery: breweryInput,
+                style: beerStyleInput,
+                category: beerCateInput,
+                reviews: []
+            };
+            
+            $.ajax({
+                method: "POST",
+                url: "/beers",
+                data: JSON.stringify(newBeer),
+                success: function (json) {
+
+                },
+                err: function () {
+                    console.log(err);
+                },
+                dataType: 'json',
+                contentType: 'application/json'
+            });
+
+            $(".submit-form-beer-cont").addClass("hidden");
+            $("#form-submit-beer").trigger('reset');
+            App.generateBeerReviewsDropDowns();
+        });
+
+    },
+
+    newReviewSubmit: function () {
+         let haveAnotherChecked;
+         
+        $("#submit-new-review-form").submit(function (event) {
+            event.preventDefault();
+            const beerId = $(this).find("#newReviewBeerDrop").val();
+            const reviewComment = $(this).find("#new-review-comment").val();
+            
+        
+            haveAnotherChecked = $("#new-review-have-another").is(":checked");
+
+            if (haveAnotherChecked) {
+                haveAnotherChecked = true;
+            } else {
+                haveAnotherChecked = false;
+            }
+
+            const newReview = {
+                beer_id: beerId,
+                comment: reviewComment,
+                haveAnother: haveAnotherChecked,
+                user_id: state.currentUserId
+            };
+            
+         
+            const token = localStorage.getItem("token");
+            
+            $.ajax({
+                method: "POST",
+                url: "/reviews",
+                data: JSON.stringify(newReview),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                success: function (json) {
+                    console.info("review saved");
+                    HTMLRenderer.showAlert(".alert--save");
+                },
+                err: function () {
+                     HTMLRenderer.showAlert(".alert--unauthorized");
+                    console.log(err);
+                },
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+            .fail(function () {
+                HTMLRenderer.showAlert(".alert--unauthorized");
+            });
+
+            $(".submit-form-review-cont").addClass("hidden");
+           $("#submit-new-review-form").trigger('reset');
+            App.generateBeerReviewsDropDowns();
+        });
+
+    },
+
+    beerStyleSelect: function () {
+        $('#beerDrop').on("change", function (event) {
+            // event.preventDefault();
+            let beerReviews = [];
+            var selected = $(this).find('option:selected');
+            let selectedReviews = selected.attr('reviews');
+            beerReviews.push(selectedReviews);
+
+            if (!$.trim(beerReviews)) {
+                console.log("There are no reviews to display");
+                state.noReviews = true;
+                HTMLRenderer.displayFilteredReviews(state.noReviews);
+            } else {
+                state.noReviews = false;
+                $.ajax({
+                        method: "GET",
+                        url: `/reviews/${selectedReviews}`,
+                        contentType: "application/json",
+                        dataType: "json"
+                    })
+                    .then(data => {
+                        HTMLRenderer.displayFilteredReviews(data);
+                    });
+            }
+            
+            
+        });
+
+    },
+
+    toggleBeerDropSelect: () => {
+        $('#beerDropLink').on("click").toggle("hidden");
+    },
+
+    handleSignUpLink: function () {
+        $(".signup-link").on("click", function (event) {
+            $(".page-heading").removeClass("hidden");
+            $(".home-main").addClass("hidden");
+            $(".signup-cont").removeClass("hidden");
+        });
+    },
+
+    handleSignupCancel: function () {
         $("#cancel-signup").on("click", function () {
             $(".home-main").removeClass("hidden");
             $(".page-heading").addClass("hidden");
             $(".signup-cont").addClass("hidden");
             $("#form-signup").trigger('reset');
         });
-
     },
 
-    loginCancel: function () {
+    handleLoginCancel: function () {
         $("#cancel-login").on("click", function () {
-            $(".page-heading").addClass("hidden");
             $(".home-main").removeClass("hidden");
+            $(".page-heading").addClass("hidden");
             $(".login-cont").addClass("hidden");
             $("#form-login").trigger('reset');
-
         });
-
     },
 
     handleSignUpSubmit: function () {
         $("#form-signup").submit(function (event) {
             event.preventDefault();
-            console.log("registering user");
-
-            const newUserName = $(this).find("#user-name").val();
-            const newPassword = $(this).find("#password").val();
-            const newUserID = Math.random().toString(36).substr(2, 16);
+            console.info("attempting to registering user");
+        
+            const newUserName = $(this).find("#user-name-signup").val();
+            const newPassword = $(this).find("#password-signup").val();
 
             const newUser = {
-                id: newUserID,
-                username: newUserName,
+                userName: newUserName,
                 password: newPassword
             };
-
-            MOCK_USERS.push(newUser);
-            console.log(newUser);
-            console.log(MOCK_USERS);
+            $.ajax({
+                method: "POST",
+                url: "/auth/register/",
+                data: JSON.stringify(newUser),
+                success: function (json) {
+                    state.currentUser = json.userName;
+                    state.currentUserId = json.user_id;
+                    HTMLRenderer.displayUserInfo(state.currentUser);
+                    localStorage.setItem("token", json.token);
+                },
+                err: function () {
+                    console.log(err);
+                },
+                dataType: 'json',
+                contentType: 'application/json'
+            });
+            // ADD on sucssfull
+            $(".page-direction-button-cont").addClass("hidden");
+            $(".logout").removeClass("hidden");
+            $(".greeting").removeClass("hidden");
             $(".page-heading").addClass("hidden");
             $(".signup-cont").addClass("hidden");
             $(".home-main").removeClass("hidden");
-            $(".home-cont").removeClass("hidden");
-            $(".signLog").addClass("hidden");
-            $(".logged-status").removeClass("hidden");
             $("#form-signup").trigger('reset');
-
         });
 
 
     },
 
     handleLoginSubmit: function () {
-        $("#form-login").submit(function (event) {
+        $("#form-login").submit(function (event){
             event.preventDefault();
-            const loginUserName = $(this).find("#user-name").val();
-            const loginPassword = $(this).find("#password").val();
+            console.info("attempting to login user");
 
-            console.log(loginUserName, loginPassword);
-            console.log("loggin in user");
-            $(".home-cont").removeClass("hidden");
-            $(".page-heading").addClass("hidden");
-            $(".home-main").removeClass("hidden");
-            $(".login-cont").addClass("hidden");
-            $(".signLog").addClass("hidden");
-            $(".logged-status").removeClass("hidden");
-            $("#form-login").trigger('reset');
-        });
+            const loginUserName = $(this).find("#user-name-login").val();
+            const loginPassword = $(this).find("#password-login").val();
 
-
-    },
-
-    handleLogout: function () {
-        $(".logout-status").on("click", function (event) {
-            console.log("logging out user");
-            $(".signLog").removeClass("hidden");
-
-        });
-    },
-
-    beerStyleSelect: function () {
-        $('.beerDropDown').on("change", function (event) { 
-            let beerReviews =[];
-        //    console.log($('#beerDrop option[attr]'.val()));
-            var selected = $(this).find('option:selected');
-            // console.log(selected.attr('reviews'));
-            let selectedReviews = selected.attr('reviews');
-            beerReviews.push(selectedReviews);
-            console.log(beerReviews);
-
-            
-                $.ajax({
-                    method: "GET",
-                    url: `/reviews/${selectedReviews}`,
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(data => {
-                    console.log(data.reviews);
-                   HTMLRenderer.displayAllReviews(data);
-
-                });
-           
-        });
-        
-    },
-
-    // reviewStyleSelect: function () {
-    //     $('.beerDropDown').on("change", function (event) {
-    //         let beerReviews = [];
-    //         //    console.log($('#beerDrop option[attr]'.val()));
-    //         var selected = $(this).find('option:selected');
-    //         // console.log(selected.attr('reviews'));
-    //         let selectedReviews = selected.attr('reviews');
-    //         beerReviews.push(selectedReviews);
-    //         console.log(beerReviews);
-
-    //         // for(var i = 0; i < beerReviews.length; i++){
-    //         $.ajax({
-    //                 method: "GET",
-    //                 url: `/reviews/${selectedReviews}`,
-    //                 contentType: "application/json",
-    //                 dataType: "json"
-    //             })
-    //             .then(data => {
-    //                 console.log(data.reviews);
-    //                 HTMLRenderer.displayAllReviews(data);
-
-    //             });
-    //         // }
-
-    //     });
-
-    // }
-
-
-
-}
-
-const App = {
-    getAllReviews: (callbackFn) => {
-        let reviewData = [];
-        setTimeout(function () {
-            callbackFn(MOCK_REVIEWS)
-        }, 1);
-
-    },
-
-    getBeerReviews: () => {
-        $('#beerDropDown').on('change', "#beerDrop", e => {
+            const loginUser = {
+                username: loginUserName,
+                password: loginPassword
+            };
             $.ajax({
-                method: "GET",
-                url: "/reviews",
-                contentType: "application/json",
-                data: JSON.stringify({username: username, password: password})
+                method: "POST",
+                url: "/auth/login/",
+                data: JSON.stringify(loginUser),
+                success: function (json) {
+                    console.log("login sucessful");
+                    localStorage.setItem("token", json.token);
+                    state.currentUser = json.user.userName;
+                    state.currentUserId = json.user._id;
+                
+                    HTMLRenderer.displayUserInfo(state.currentUser);
+                     $(".page-direction-button-cont").addClass("hidden");
+                     $(".logout").removeClass("hidden");
+                     $(".greeting").removeClass("hidden");
+                     $(".page-heading").addClass("hidden");
+                     $(".home-main").removeClass("hidden");
+                     $(".login-cont").addClass("hidden");
+                     $("#form-login").trigger('reset');
+                },
+                err: function () {
+                    console.log(err);
+                },
+                dataType: 'json',
+                contentType: 'application/json'
             })
-            .done(function (result) {
-                HTMLRenderer.showSection(".home");
-            });           
-        });
-    },
-
-    getAndDisplayAllReviews: () => {
-        App.getAllReviews(HTMLRenderer.displayAllReviews);
-        
-        
-    },
-
-    reset: function () {
-
-        EventListeners.startListeners();
-        HTMLRenderer.showSection(".landing");
-
-    },
-    
-    generateBeerDropDowns: () => {
-        $('#beerDrop, select[data-source]').each(function () {
-            var $select = $(this);
-
-            $select.append('<option></option>');
-
-            $.ajax({
-                method: "GET",
-                url: $select.attr('data-source'),
-                contentType: "application/json",
-                dataType: "json"
-                })
-                .then(function (options) {
-                    // console.log(options);
-                    options.beers.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-                            .attr('reviews', option.reviews.toString());
-
-                        $select.append($option);
-                    });
-                });
-        });
-    },
-
-    generateStyleDropDowns: () => {
-        $('#beerStyleDrop, select[data-source]').each(function () {
-            var $select = $(this);
-
-            $select.append('<option></option>');
-
-            $.ajax({
-                    method: "GET",
-                    url: $select.attr('data-source'),
-                    contentType: "application/json",
-                    dataType: "json"
-                })
-                .then(function (options) {
-                    // console.log(options);
-                    options.styles.map(function (option) {
-                        var $option = $('<option>');
-                        $option
-                            .val(option[$select.attr('data-valueKey')])
-                            .text(option[$select.attr('data-displayKey')])
-
-                        $select.append($option);
-                    });
-                });
-        });
-    },
-     
-    generateCateDropDowns: () => {
-            $('#beerCateDrop, select[data-source]').each(function () {
-                var $select = $(this);
-
-                $select.append('<option></option>');
-
-                $.ajax({
-                        method: "GET",
-                        url: $select.attr('data-source'),
-                        contentType: "application/json",
-                        dataType: "json"
-                    })
-                    .then(function (options) {
-                        console.log(options);
-                        options.categorys.map(function (option) {
-                            var $option = $('<option>');
-                            $option
-                                .val(option[$select.attr('data-valueKey')])
-                                .text(option[$select.attr('data-displayKey')])
-
-                            $select.append($option);
-                        });
-                    });
+            .fail(function () {
+                 $("#form-login").trigger('reset');
+                HTMLRenderer.showError("Incorrect username/password");
             });
-        }
-        // signupUser: function(username, password) {
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "/api/user/register",
-        //         contentType: "application/json",
-        //         data: JSON.stringify({username: username, password: password})
-        //     })
-        //     .done(function (result) {
-        //         HTMLRenderer.showSection(".home");
-        //     })
-        // },
 
- 
-    // generateBeerDrop: function () {
-    //     $('#beerDropdown').load('js/beer-style-drop-items.html');
-    //     $('#beer-style').load('js/beer-styles-new-reviews.html');
+        });
+    },
 
-    // },
+    handleLoginLinkPrimary: function () {
+        $(".login-link").on("click", function (event) {
+    $(".page-heading").removeClass("hidden");
+    $(".home-main").addClass("hidden");
+    $(".login-cont").removeClass("hidden");
 
-  
+        });
+    },
 
-    // filterBeerStyles: function () {
-    // $('#beerDropdown').change(function () {
-    //     let selectedStyle = $('#filter-review-select option:selected').val();
-    //     console.log("selected beer style" + selectedStyle);
-    //     // $('filtered-reviews').html('');
-    //     $.getJSON('js/reviews.js/?beerStyle=IPA', getSelectedStyle);
-    //     function getSelectedStyle(data) {
-    //         HTMLRenderer.displayAllReviews(data);
-    //     }
-    // });
+    handleLogOutLink: function () {
+        $(".logout").on("click", function () {
+             $(".page-direction-button-cont").removeClass("hidden");
+             $(".logout").addClass("hidden");
+             $(".greeting").addClass("hidden");
+             console.log('logging out user');
+            App.logoutUser();
+        });
+    },
 
-    // }
-    
+    showPassClickSignup: function () {
+        $("#showPassCheck-signup").on("click", function (event) {
+            var x = document.getElementById("password-signup");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        });
+    },
+
+    showPassClickLogin: function () {
+        $("#showPassCheck-login").on("click", function (event) {
+            var x = document.getElementById("password-login");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        });
+    },
+
+    editReviewClick: function () {
+        $(".filtered-reviews-cont").on("click", ".edit-link", function (event) {
+            event.preventDefault();
+            $(this).closest(".col-md-6").find(".edit-input").show();
+            $(this).closest(".col-md-6").find(".edit-input").find("#user-name-login").val();
+            $(this).find("#user-name-login").val();
+        });
+    },
+
+    deleteReviewClick: function () {
+        $(".filtered-reviews-cont").on("click", ".delete-link", function (event) {
+            event.preventDefault();
+            console.log('delete click');
+            const reviewIdDelete = $(this).closest(".col-md-6").find(".edit-delete-cont").data("review-id");
+            const token = localStorage.getItem("token");
+            console.log(reviewIdDelete);
+
+            $.ajax({
+                    method: "DELETE",
+                    url: `/reviews/${reviewIdDelete}`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    success: function (json) {
+                        console.info("review delete sucessful");
+                        HTMLRenderer.showAlert(".alert--delete");
+                    },
+                    err: function () {
+                        HTMLRenderer.showAlert(".alert--unauthorized");
+                        console.log(err);
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json'
+                })
+                .fail(function () {
+                    HTMLRenderer.showAlert(".alert--unauthorized");
+                });
+
+           $("#beerDrop option:eq(0)").prop("selected", true);
+           $(".filtered-reviews-cont").addClass("hidden");
+           $('.filtered-reviews-cont').empty();
+        });
+    },
+
+    editReviewSubmit: function () {
+        let haveAnotherChecked;
+        
+        $(".filtered-reviews-cont").on("submit", ".edit-review-form", function (event) {
+            event.preventDefault();
+           
+            const editedReviewId = $(this).closest(".col-md-6").find(".edit-delete-cont").data("review-id");
+            const editedComment = $(this).parent().find(".edit-review-comment").val();
+                  
+            haveAnotherChecked = $(".edit-review-have-another").is(":checked");
+
+            if (haveAnotherChecked) {
+                haveAnotherChecked = true;
+            } else {
+                haveAnotherChecked = false;
+            }
+
+            const editedReview = {
+                id: editedReviewId,
+                comment: editedComment,
+                haveAnother: haveAnotherChecked
+            };
+            const token = localStorage.getItem("token");
+
+            $.ajax({
+                    method: "PUT",
+                    url: `/reviews/${editedReviewId}`,
+                    data: JSON.stringify(editedReview),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    },
+                    success: function (json) {
+                        console.info("review edit saved");
+                        HTMLRenderer.showAlert(".alert--save");
+                    },
+                    err: function () {
+                        HTMLRenderer.showAlert(".alert--unauthorized");
+                        console.log(err);
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json'
+                })
+                .fail(function () {
+                    HTMLRenderer.showAlert(".alert--unauthorized");
+                });
+
+            $("#beerDrop option:eq(0)").prop("selected", true);
+            $(".filtered-reviews-cont").addClass("hidden");
+            $('.filtered-reviews-cont').empty();
+            $(".edit-review-form").trigger('reset');
+            $(this).closest(".col-md-6").find(".edit-input").hide();
+        });
+    },
+
+    editReviewCancel: function () {
+         $(".filtered-reviews-cont").on("click", ".edit-review-cancel", function (event) {
+             event.preventDefault();
+            $(".edit-review-form").trigger('reset');
+            $(this).closest(".col-md-6").find(".edit-input").hide(); 
+         });
+    },
+
+    reviewClose: function () {
+        $(".filtered-reviews-cont").on("click", "#close-review", function (event) {
+            event.preventDefault();
+             $(".filtered-reviews-cont").addClass("hidden");
+             $('.filtered-reviews-cont').empty();
+             $("#beerDrop option:eq(0)").prop("selected", true);
+        });
+    }
 };
 
-// $(App.reset());
+const App = {
+
+    generateStyleDropDowns: () => {
+        $('#styleDropNewBeer').empty();
+        $('#styleDropNewBeer, select[data-source-style]').each(function () {
+            var $selectStyle = $(this);
+            $selectStyle.append('<option></option>');
+            $.ajax({
+                    method: "GET",
+                    url: $selectStyle.attr('data-source-style'),
+                    contentType: "application/json",
+                    dataType: "json"
+                })
+                .then(function (styleOptions) {
+                    styleOptions.styles.map(function (styleOption) {
+                        var $styleOption = $('<option>');
+                        $styleOption
+                            .val(styleOption[$selectStyle.attr('data-valueKey')])
+                            .text(styleOption[$selectStyle.attr('data-displayKey')]);
+                        $selectStyle.append($styleOption);
+                    });
+                    $("#styleDropNewBeer").html($('#styleDropNewBeer option').sort(function (x, y) {
+                        
+                        return $(x).text() < $(y).text() ? -1 : 1;
+                    }));
+
+                    $("#styleDropNewBeer").get(0).selectedIndex = 0;
+                });
+        });
+    },
+
+    generateCateDropDowns: () => {
+        $('#cateDropNewBeer').empty();
+        $('#cateDropNewBeer, select[data-source-cat]').each(function () {
+            var $selectCat = $(this);
+            $selectCat.append('<option></option>');
+            $.ajax({
+                    method: "GET",
+                    url: $selectCat.attr('data-source-cat'),
+                    contentType: "application/json",
+                    dataType: "json",
+                })
+                .then(function (catOptions) {
+                    catOptions.categorys.map(function (catOption) {
+                        var $catOption = $('<option>');
+                        $catOption
+                            .val(catOption[$selectCat.attr('data-valueKey')])
+                            .text(catOption[$selectCat.attr('data-displayKey')]);
+                        $selectCat.append($catOption);
+                    });
+                    $("#cateDropNewBeer").html($('#cateDropNewBeer option').sort(function (x, y) {
+                        
+                        return $(x).text() < $(y).text() ? -1 : 1;
+                    }));
+
+                    $("#cateDropNewBeer").get(0).selectedIndex = 0;
+                });
+        });
+    },
+    generateBeerReviewsDropDowns: () => {
+        $('#beerDrop').empty();
+        $('#beerDrop, select[data-source-beer]').each(function () {
+            var $selectBeer = $(this);
+            $selectBeer.append('<option></option>');
+
+            $.ajax({
+                    method: "GET",
+                    url: $selectBeer.attr('data-source-beer'),
+                    contentType: "application/json",
+                    dataType: "json"
+                })
+                .then(function (beerOptions) {
+                    
+                    beerOptions.beers.map(function (beerOption) {
+                        var $optionBeer = $('<option>');
+                        $optionBeer
+                            .val(beerOption[$selectBeer.attr('data-valueKey')])
+                            .text(beerOption[$selectBeer.attr('data-displayKey')])
+                            .attr('reviews', beerOption.reviews.toString());
+                        $selectBeer.append($optionBeer);
+                    });
+                    $("#beerDrop").html($('#beerDrop option').sort(function (x, y) {
+                        
+                        return $(x).text() < $(y).text() ? -1 : 1;
+                    }));
+
+                    $("#beerDrop").get(0).selectedIndex = 0;
+                });
+        });  
+    },
+
+    generateBeersDropDownNewReview: () => {
+        $('#newReviewBeerDrop').empty();
+        $('#newReviewBeerDrop, select[data-source-nBeer]').each(function () {
+            var $selectNew = $(this);
+            $selectNew.append('<option></option>');
+            $.ajax({
+                    method: "GET",
+                    url: $selectNew.attr('data-source-nBeer'),
+                    contentType: "application/json",
+                    dataType: "json"
+                })
+                .then(function (optionsNew) {
+                    optionsNew.beers.map(function (optionNew) {
+                        var $optionNew = $('<option>');
+                        $optionNew
+                            .val(optionNew[$selectNew.attr('data-valueKey')])
+                            .text(optionNew[$selectNew.attr('data-displayKey')]);
+                        $selectNew.append($optionNew);
+                    });
+
+                    $("#newReviewBeerDrop").html($('#newReviewBeerDrop option').sort(function (x, y) {
+                        return $(x).text() < $(y).text() ? -1 : 1;
+
+                    }));
+
+                    $("#newReviewBeerDrop").get(0).selectedIndex = 0;
+                });
+        });
+    },
+
+    logoutUser: function () {
+        localStorage.removeItem("token");
+        state.currentUser = "";
+        state.currentUserId = "";
+    },
+};
 
 $(function () {
-    App.generateBeerDropDowns();
-    App.generateStyleDropDowns();
-    App.generateCateDropDowns();
-    // App.getAndDisplayAllReviews();
-    // App.generateBeerDrop();
-    // App.filterBeerStyles();
     EventListeners.startListeners();
-    
-    // HTMLRenderer.showSection(".landing");
-
-
+    App.generateBeerReviewsDropDowns();
 });
-
-
