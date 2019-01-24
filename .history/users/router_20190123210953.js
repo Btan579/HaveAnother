@@ -4,6 +4,18 @@ const bodyParser = require("body-parser");
 const {
     User
 } = require("./models");
+const {
+    Style
+} = require("../styles/models");
+const {
+    Beer
+} = require("../beers/models");
+const {
+    Review
+} = require("../reviews/models");
+const {
+    Category
+} = require('../categories/models');
 
 const mongoose = require("mongoose");
 
