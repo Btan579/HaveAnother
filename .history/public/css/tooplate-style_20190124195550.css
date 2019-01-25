@@ -1364,11 +1364,11 @@ footer p em {
 	.banner .left-side {
 		text-align: center;
 		overflow: hidden;
-		/* padding-left: 0vh;
+		padding-left: 0vh;
 		margin-left: -50vh;
 		margin-right: -50vh;
 		padding-right: 50vh;
-		padding-left: 50vh; */
+		padding-left: 50vh;
 	}
 
 	.banner .menu-links {
@@ -1471,11 +1471,207 @@ footer p em {
 }
 
 @media (max-width: 768px) {
-	
+	.banner .left-side {
+		text-align: center;
+		overflow: hidden;
+		padding-left: 0vh;
+		margin-left: -50vh;
+		margin-right: -50vh;
+		padding-right: 50vh;
+		padding-left: 50vh;
+	}
+
+	.banner .menu-links {
+		list-style: none;
+		margin-top: 0px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+
+	.banner .page-direction-button {
+		margin-top: 50px;
+	}
+
+	.banner .logo img {
+		padding-top: 40px;
+		max-width: 100%;
+	}
+
+	.banner .tabs-content {
+		margin-top: 60px;
+	}
+
+	.banner .submit-form-beer-cont {
+		margin: 30px 30px;
+	}
+
+	.banner .submit-form-review-cont {
+		margin: 30px 30px;
+	}
+
+	#weather .tabs li {
+		display: block;
+		text-align: center;
+		width: 100%;
+		margin: 0px 0px;
+	}
+
+	#weather .tabs a {
+		display: block;
+		color: #fff;
+		font-size: 13px;
+		display: block;
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		padding-left: 0px;
+		text-align: center;
+	}
+
+	#weather .weather-item {
+		margin-bottom: 30px;
+	}
+
+	.weathergroup {
+		padding: 30px 30px 10px 30px;
+	}
+
+	.service-item {
+		margin: 30px 0px;
+	}
+
+	.page-heading .logo {
+		padding: 60px 0px;
+		text-align: center;
+	}
+
+	.page-heading .page-direction-button {
+		text-align: center;
+		margin-top: 0px;
+	}
+
+	.weather-item h6 {
+		margin-bottom: 30px;
+	}
+
+	.weather-item .weather-icon {
+		margin-bottom: 20px;
+	}
+
+	.weather-item ul {
+		margin-top: 20px;
+		padding: 20px 10px;
+	}
+
+	.weather-item ul li {
+		margin: 0px 5px;
+	}
+
+	footer ul li {
+		margin-bottom: 10px !important;
+	}
 }
 
 @media (max-width: 480px) {}
+.banner .left-side {
+	text-align: center;
+	overflow: hidden;
+	padding-left: 0vh;
+	margin-left: -50vh;
+	margin-right: -50vh;
+	padding-right: 50vh;
+	padding-left: 50vh;
+}
 
+.banner .menu-links {
+	list-style: none;
+	margin-top: 0px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.banner .page-direction-button {
+	margin-top: 50px;
+}
+
+.banner .logo img {
+	padding-top: 40px;
+	max-width: 100%;
+}
+
+.banner .tabs-content {
+	margin-top: 60px;
+}
+
+.banner .submit-form-beer-cont {
+	margin: 30px 30px;
+}
+
+.banner .submit-form-review-cont {
+	margin: 30px 30px;
+}
+
+#weather .tabs li {
+	display: block;
+	text-align: center;
+	width: 100%;
+	margin: 0px 0px;
+}
+
+#weather .tabs a {
+	display: block;
+	color: #fff;
+	font-size: 13px;
+	display: block;
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	padding-left: 0px;
+	text-align: center;
+}
+
+#weather .weather-item {
+	margin-bottom: 30px;
+}
+
+.weathergroup {
+	padding: 30px 30px 10px 30px;
+}
+
+.service-item {
+	margin: 30px 0px;
+}
+
+.page-heading .logo {
+	padding: 60px 0px;
+	text-align: center;
+}
+
+.page-heading .page-direction-button {
+	text-align: center;
+	margin-top: 0px;
+}
+
+.weather-item h6 {
+	margin-bottom: 30px;
+}
+
+.weather-item .weather-icon {
+	margin-bottom: 20px;
+}
+
+.weather-item ul {
+	margin-top: 20px;
+	padding: 20px 10px;
+}
+
+.weather-item ul li {
+	margin: 0px 5px;
+}
+
+footer ul li {
+	margin-bottom: 10px !important;
+}
 /* @media (max-width: 680px) {
 	#live-view {
 		left: 0;
@@ -1485,5 +1681,3 @@ footer p em {
 	}
 
 } */
-
-

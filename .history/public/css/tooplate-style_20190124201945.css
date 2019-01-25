@@ -1364,11 +1364,11 @@ footer p em {
 	.banner .left-side {
 		text-align: center;
 		overflow: hidden;
-		/* padding-left: 0vh;
+		padding-left: 0vh;
 		margin-left: -50vh;
 		margin-right: -50vh;
 		padding-right: 50vh;
-		padding-left: 50vh; */
+		padding-left: 50vh;
 	}
 
 	.banner .menu-links {
@@ -1486,4 +1486,4 @@ footer p em {
 
 } */
 
-
+@media (min-width: 768px) {}
