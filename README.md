@@ -7,8 +7,8 @@ Have Another is a simple, no frills place to post and read short reviews on beer
 
 ### Screenshots
 
-![Home](/have-another-github-screenshots/main-page.png)
 
+![Home](https://raw.github.com/btan579/haveanother/master/have-another-github-screenshots/main-page.png)
 
 
 ### API
