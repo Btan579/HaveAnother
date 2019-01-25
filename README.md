@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/Btan579/HaveAnother.svg?branch=master)](https://travis-ci.org/Btan579/HaveAnother)
 
 ## Live App:
-- [Live App](https://have-another.herokuapp.com/)
+- [Have Another](https://have-another.herokuapp.com/)
 
 ## About
 
