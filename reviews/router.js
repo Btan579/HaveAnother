@@ -151,7 +151,7 @@ router.get("/:id", (req, res) => {
 
 
 router.post('/', jwtAuth, (req, res) => {
-    console.info('posting review');
+    
     const requiredFields = ['beer_id', 'comment', 'haveAnother', 'user_id'];
     requiredFields.forEach(field => {
         if (!(field in req.body)) {

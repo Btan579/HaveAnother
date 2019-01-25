@@ -212,7 +212,7 @@ const EventListeners = {
             
          
             const token = localStorage.getItem("token");
-            console.log(token);
+           
             $.ajax({
                 method: "POST",
                 url: "/reviews",
@@ -222,7 +222,7 @@ const EventListeners = {
                     Authorization: `Bearer ${token}`
                 },
                 success: function (json) {
-                    console.info("review saved");
+                   
                     HTMLRenderer.showAlert(".alert--save");
                 },
                 err: function () {
@@ -306,7 +306,6 @@ const EventListeners = {
     handleSignUpSubmit: function () {
         $("#form-signup").submit(function (event) {
             event.preventDefault();
-            console.info("attempting to registering user");
         
             const newUserName = $(this).find("#user-name-signup").val();
             const newPassword = $(this).find("#password-signup").val();
@@ -347,7 +346,6 @@ const EventListeners = {
     handleLoginSubmit: function () {
         $("#form-login").submit(function (event){
             event.preventDefault();
-            console.info("attempting to login user");
 
             const loginUserName = $(this).find("#user-name-login").val();
             const loginPassword = $(this).find("#password-login").val();
@@ -361,7 +359,6 @@ const EventListeners = {
                 url: "/auth/login/",
                 data: JSON.stringify(loginUser),
                 success: function (json) {
-                    console.log("login sucessful");
                     localStorage.setItem("token", json.token);
                     state.currentUser = json.user.userName;
                     state.currentUserId = json.user._id;
@@ -403,7 +400,7 @@ const EventListeners = {
              $(".page-direction-button-cont").removeClass("hidden");
              $(".logout").addClass("hidden");
              $(".greeting").addClass("hidden");
-             console.log('logging out user');
+            
             App.logoutUser();
         });
     },
@@ -442,10 +439,10 @@ const EventListeners = {
     deleteReviewClick: function () {
         $(".filtered-reviews-cont").on("click", ".delete-link", function (event) {
             event.preventDefault();
-            console.log('delete click');
+          
             const reviewIdDelete = $(this).closest(".col-md-6").find(".edit-delete-cont").data("review-id");
             const token = localStorage.getItem("token");
-            console.log(reviewIdDelete);
+        
 
             $.ajax({
                     method: "DELETE",
@@ -455,7 +452,7 @@ const EventListeners = {
                         Authorization: `Bearer ${token}`
                     },
                     success: function (json) {
-                        console.info("review delete sucessful");
+                        
                         HTMLRenderer.showAlert(".alert--delete");
                     },
                     err: function () {
@@ -508,7 +505,7 @@ const EventListeners = {
                         Authorization: `Bearer ${token}`
                     },
                     success: function (json) {
-                        console.info("review edit saved");
+                        
                         HTMLRenderer.showAlert(".alert--save");
                     },
                     err: function () {
