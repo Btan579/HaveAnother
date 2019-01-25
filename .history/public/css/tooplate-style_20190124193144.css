@@ -1470,13 +1470,11 @@ footer p em {
 
 }
 
-@media (max-width: 768px) {
-	
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 480px) {}
 
-/* @media (max-width: 680px) {
+@media (max-width: 680px) {
 	#live-view {
 		left: 0;
 		top: 0;
@@ -1484,4 +1482,4 @@ footer p em {
 		height: 100%;
 	}
 
-} */
+}

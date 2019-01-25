@@ -1351,13 +1351,6 @@ footer p em {
 	float: right;
 }
 
-#live-view {
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-}
-
 @media (max-width: 991px) {
 
 
@@ -1369,6 +1362,7 @@ footer p em {
 		margin-right: -50vh;
 		padding-right: 50vh;
 		padding-left: 50vh;
+		width: 100%;
 	}
 
 	.banner .menu-links {
@@ -1461,18 +1455,16 @@ footer p em {
 		margin-bottom: 10px !important;
 	}
 
-	/* #live-view {
+	#live-view {
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
-	} */
+	}
 
 }
 
-@media (max-width: 768px) {
-	
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 480px) {}
 

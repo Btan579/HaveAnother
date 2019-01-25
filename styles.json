@@ -1,0 +1,28 @@
+{"_id":{"$oid":"5ba6c4de7deaad1410cb55f0"},"name":"Aged","__v":0}
+{"_id":{"$oid":"5ba6c5637deaad1410cb55f2"},"name":"American","__v":0}
+{"_id":{"$oid":"5ba6c56b7deaad1410cb55f3"},"name":"Australasian","__v":0}
+{"_id":{"$oid":"5ba6c5a27deaad1410cb55f4"},"name":"Baltic","__v":0}
+{"_id":{"$oid":"5ba6c5bc7deaad1410cb55f5"},"name":"Bamberg","__v":0}
+{"_id":{"$oid":"5ba6c5c87deaad1410cb55f6"},"name":"Belgian","__v":0}
+{"_id":{"$oid":"5ba6c5d77deaad1410cb55f7"},"name":"British","__v":0}
+{"_id":{"$oid":"5ba6c5e77deaad1410cb55f8"},"name":"California","__v":0}
+{"_id":{"$oid":"5ba6c6147deaad1410cb55f9"},"name":"Dark","__v":0}
+{"_id":{"$oid":"5ba6c61e7deaad1410cb55fa"},"name":"English","__v":0}
+{"_id":{"$oid":"5ba6c6277deaad1410cb55fb"},"name":"European","__v":0}
+{"_id":{"$oid":"5ba6c6397deaad1410cb55fc"},"name":"French \u0026 Belgian","__v":0}
+{"_id":{"$oid":"5ba6c6447deaad1410cb55fd"},"name":"French","__v":0}
+{"_id":{"$oid":"5ba6c65c7deaad1410cb55fe"},"name":"Irish","__v":0}
+{"_id":{"$oid":"5ba6c6667deaad1410cb55ff"},"name":"Japanese","__v":0}
+{"_id":{"$oid":"5ba6c6727deaad1410cb5600"},"name":"Leipzip","__v":0}
+{"_id":{"$oid":"5ba6c67e7deaad1410cb5601"},"name":"Pale to Amber","__v":0}
+{"_id":{"$oid":"5ba6c6887deaad1410cb5602"},"name":"Scottish","__v":0}
+{"_id":{"$oid":"5ba6c6937deaad1410cb5603"},"name":"Sour","__v":0}
+{"_id":{"$oid":"5ba6c69a7deaad1410cb5604"},"name":"South German","__v":0}
+{"_id":{"$oid":"5ba6c6a37deaad1410cb5605"},"name":"Strong","__v":0}
+{"_id":{"$oid":"5ba6c6a97deaad1410cb5606"},"name":"None","__v":0}
+{"_id":{"$oid":"5ba705a9ac95c72aa4e0ec58"},"name":"New England","__v":0}
+{"_id":{"$oid":"5bb97557a1ba6549ccf4d2f9"},"name":"Pumpkin","__v":0}
+{"_id":{"$oid":"5bbbba87d0dddc3e10cd6e9f"},"name":"Black","__v":0}
+{"_id":{"$oid":"5bd638f8c9e0a26aac9e0d70"},"name":"Russian","__v":0}
+{"_id":{"$oid":"5c0d72711f6491457ca86076"},"name":"Other","__v":0}
+{"_id":{"$oid":"5c0d72cb1f6491457ca8607a"},"name":"Czech","__v":0}

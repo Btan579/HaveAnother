@@ -27,6 +27,13 @@ p {
 	line-height: 24px;
 }
 
+/* #live-view {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+} */
+
 .greeting {
 	color: #fff;
 	font-weight: 700;
@@ -1034,13 +1041,8 @@ footer p em {
 }
 
 
-/* 
-#live-view {
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-} */
+
+
 
 
 .page-heading {
@@ -1351,13 +1353,6 @@ footer p em {
 	float: right;
 }
 
-#live-view {
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-}
-
 @media (max-width: 991px) {
 
 
@@ -1460,19 +1455,16 @@ footer p em {
 	footer ul li {
 		margin-bottom: 10px !important;
 	}
-
-	/* #live-view {
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-	} */
+#live-view {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
 
 }
 
-@media (max-width: 768px) {
-	
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 480px) {}
 
