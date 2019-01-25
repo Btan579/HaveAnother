@@ -1354,7 +1354,7 @@ footer p em {
 .col-md-5{
 	   position: relative;
 	   min-height: 1px;
-	   padding-right: 15px;
+	   padding-right: 5px;
 	   padding-left: 15px
 }
 @media (max-width: 991px) {
