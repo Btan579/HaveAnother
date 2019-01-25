@@ -18,13 +18,14 @@ Have Another is a simple, no frills place to post and read short reviews on beer
 ### API
 
 The API I set up for this project covers the main HTTP verbs (`POST`, `GET`, `PUT`, `DELETE`, `PATCH`).  Users can signup, post new beers, post reviews, edit reviews, delete reviews and see reviews for a selected beer.
-### Technology
 
-## Frontend:
+## Technology
+
+### Frontend:
 + Javascript w/ jQuery
 + HTML5/CSS
 
-## Backend:
+### Backend:
 + Mongodb / Mongoose
 + Node / Express
 + Mocha w/ Chai
