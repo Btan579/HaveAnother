@@ -8,8 +8,12 @@ Have Another is a simple, no frills place to post and read short reviews on beer
 ### Screenshots
 
 
-![Home](../have-another-github-screenshots/main-page.png)
-
+![Home](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/Main-page.PNG)
+![Login](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/login-page.png)
+![Signup](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/sign-up-page.PNG)
+![Display Reviews](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/display-reviews.png "Reviews displayed by beer")
+![New Beer](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/add-beer.png "Add a new beer")
+![New Review](https://github.com/Btan579/HaveAnother/blob/master/have-another-github-screenshots/post-review.png "Post a new review")
 
 ### API
 
