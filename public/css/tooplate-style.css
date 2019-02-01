@@ -1335,8 +1335,6 @@ footer p em {
 
 .col-md-5{
 	   position: relative;
-	   min-height: 1px;
-	   padding-right: 15px;
 	   padding-left: 15px
 }
 @media (max-width: 991px) {
@@ -1345,6 +1343,7 @@ footer p em {
 	.banner .left-side {
 		text-align: center;
 		overflow: hidden;
+
 	}
 
 	.banner .menu-links {
@@ -1437,20 +1436,29 @@ footer p em {
 		margin-bottom: 10px !important;
 	}
 
-	/* #live-view {
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-	} */
+	.col-md-5 {
+		position: relative;
+		padding-right: 30px;
+		padding-left: 30px
+	}
 
 }
 
 @media (max-width: 768px) {
-	
+	.col-md-5 {
+		position: relative;
+		padding-right: 15px;
+		padding-left: 15px
+	}
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+	.col-md-5 {
+		position: relative;
+		padding-right: 15px;
+		padding-left: 15px
+	}%
+}
 
 /* @media (max-width: 680px) {
 	#live-view {
