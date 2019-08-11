@@ -18,7 +18,7 @@ const HTMLRenderer = {
     },
 
     displayFilteredReviews: (data) => {
-      
+        
         if (state.noReviews) {
             $(".filtered-reviews-cont").removeClass("hidden");
             $('.filtered-reviews-cont').empty();
@@ -33,15 +33,15 @@ const HTMLRenderer = {
 for (let i = 0; i < data.reviews.length; i++) {
     
     if (data.reviews[i].haveAnother) {
-        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
             '</p><h6>Comment: </h6><p>' + data.reviews[i].comment  +
-            '</p><h6>Have another?: </h6><p>' + " I'll have another! " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '"><a href="#" class="edit-link" >Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name = "edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">'+ "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel" >Cancel</button></fieldset></form></div></div>');
+            '</p><h6>Have another?: </h6><p>' + " I'll have another! " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link" >Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name = "edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">'+ "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel" >Cancel</button></fieldset></form></div></div>');
         window.scrollTo(0, 0);
     } else {
         window.scrollTo(0, 0);
-        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
             '</p><h6>Comment: </h6><p>' + data.reviews[i].comment +
-            '</p><h6>Have another?: </h6><p>' + " Nah " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '"><a href="#" class="edit-link">Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name="edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel">Cancel</button></fieldset></form></div></div>');
+            '</p><h6>Have another?: </h6><p>' + " Nah " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link">Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name="edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel">Cancel</button></fieldset></form></div></div>');
     }
             }
         }
@@ -250,7 +250,7 @@ const EventListeners = {
             var selected = $(this).find('option:selected');
             let selectedReviews = selected.attr('reviews');
             beerReviews.push(selectedReviews);
-
+            
             if (!$.trim(beerReviews)) {
                 console.log("There are no reviews to display");
                 state.noReviews = true;
@@ -441,10 +441,12 @@ const EventListeners = {
             event.preventDefault();
           
             const reviewIdDelete = $(this).closest(".col-md-6").find(".edit-delete-cont").data("review-id");
-            const token = localStorage.getItem("token");
+            const correctUser = $(this).closest(".col-md-6").find(".edit-delete-cont").data("user-id");
         
+            const token = localStorage.getItem("token");
 
-            $.ajax({
+            if (correctUser === state.currentUserId){
+                $.ajax({
                     method: "DELETE",
                     url: `/reviews/${reviewIdDelete}`,
                     headers: {
@@ -452,7 +454,7 @@ const EventListeners = {
                         Authorization: `Bearer ${token}`
                     },
                     success: function (json) {
-                        
+
                         HTMLRenderer.showAlert(".alert--delete");
                     },
                     err: function () {
@@ -462,13 +464,18 @@ const EventListeners = {
                     dataType: 'json',
                     contentType: 'application/json'
                 })
-                .fail(function () {
-                    HTMLRenderer.showAlert(".alert--unauthorized");
-                });
+                    .fail(function () {
+                        HTMLRenderer.showAlert(".alert--unauthorized");
+                    });
 
-           $("#beerDrop option:eq(0)").prop("selected", true);
-           $(".filtered-reviews-cont").addClass("hidden");
-           $('.filtered-reviews-cont').empty();
+                $("#beerDrop option:eq(0)").prop("selected", true);
+                $(".filtered-reviews-cont").addClass("hidden");
+                $('.filtered-reviews-cont').empty();
+            } else {
+                HTMLRenderer.showAlert(".alert--unauthorized");
+            }
+
+            
         });
     },
 
@@ -551,6 +558,7 @@ const App = {
         $('#styleDropNewBeer').empty();
         $('#styleDropNewBeer, select[data-source-style]').each(function () {
             var $selectStyle = $(this);
+            
             $selectStyle.append('<option></option>');
             $.ajax({
                     method: "GET",
@@ -559,6 +567,7 @@ const App = {
                     dataType: "json"
                 })
                 .then(function (styleOptions) {
+                    
                     styleOptions.styles.map(function (styleOption) {
                         var $styleOption = $('<option>');
                         $styleOption
@@ -608,6 +617,7 @@ const App = {
         $('#beerDrop').empty();
         $('#beerDrop, select[data-source-beer]').each(function () {
             var $selectBeer = $(this);
+           
             $selectBeer.append('<option></option>');
 
             $.ajax({
@@ -617,7 +627,6 @@ const App = {
                     dataType: "json"
                 })
                 .then(function (beerOptions) {
-                    
                     beerOptions.beers.map(function (beerOption) {
                         var $optionBeer = $('<option>');
                         $optionBeer
