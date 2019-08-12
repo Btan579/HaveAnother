@@ -486,6 +486,7 @@ const EventListeners = {
             event.preventDefault();
            
             const editedReviewId = $(this).closest(".col-md-6").find(".edit-delete-cont").data("review-id");
+            const correctUser = $(this).closest(".col-md-6").find(".edit-delete-cont").data("user-id");
             const editedComment = $(this).parent().find(".edit-review-comment").val();
                   
             haveAnotherChecked = $(".edit-review-have-another").is(":checked");
@@ -503,7 +504,8 @@ const EventListeners = {
             };
             const token = localStorage.getItem("token");
 
-            $.ajax({
+            if (correctUser === state.currentUserId) {
+                $.ajax({
                     method: "PUT",
                     url: `/reviews/${editedReviewId}`,
                     data: JSON.stringify(editedReview),
@@ -512,7 +514,7 @@ const EventListeners = {
                         Authorization: `Bearer ${token}`
                     },
                     success: function (json) {
-                        
+
                         HTMLRenderer.showAlert(".alert--save");
                     },
                     err: function () {
@@ -522,15 +524,18 @@ const EventListeners = {
                     dataType: 'json',
                     contentType: 'application/json'
                 })
-                .fail(function () {
-                    HTMLRenderer.showAlert(".alert--unauthorized");
-                });
+                    .fail(function () {
+                        HTMLRenderer.showAlert(".alert--unauthorized");
+                    });
 
-            $("#beerDrop option:eq(0)").prop("selected", true);
-            $(".filtered-reviews-cont").addClass("hidden");
-            $('.filtered-reviews-cont').empty();
-            $(".edit-review-form").trigger('reset');
-            $(this).closest(".col-md-6").find(".edit-input").hide();
+                $("#beerDrop option:eq(0)").prop("selected", true);
+                $(".filtered-reviews-cont").addClass("hidden");
+                $('.filtered-reviews-cont').empty();
+                $(".edit-review-form").trigger('reset');
+                $(this).closest(".col-md-6").find(".edit-input").hide();
+            } else {
+                HTMLRenderer.showAlert(".alert--unauthorized");
+            }
         });
     },
 
