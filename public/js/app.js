@@ -1,13 +1,15 @@
+// Global variables
 state = {
     noReviews: null,
     currentUser: "",
     currentUserId: "",
      newLogin: true,
-    // selectedUsers: [],
-    // selectedUsersArr: []
 };
 
+// Functions associated with rendering HTML
 const HTMLRenderer = {
+
+// Hides/Shows sections
     showSection: function (sectionToShow) {
         const sections = [".logged-status", ".submit-form-beer-cont", ".filtered-reviews-cont", ".home-cont"];
         sections.forEach(function (item, index) {
@@ -17,8 +19,9 @@ const HTMLRenderer = {
 
     },
 
+// Displays reviews for a specific beer that has been selected
     displayFilteredReviews: (data) => {
-        
+
         if (state.noReviews) {
             $(".filtered-reviews-cont").removeClass("hidden");
             $('.filtered-reviews-cont').empty();
@@ -30,32 +33,34 @@ const HTMLRenderer = {
                 '</h4><h4>' + data.beer.style +
                 '</h4><h4>' + data.beer.category +
                 '</h4><h4><em>Brewed by </em>' + data.beer.brewery + '</div>');
-for (let i = 0; i < data.reviews.length; i++) {
-    
-    if (data.reviews[i].haveAnother) {
-        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
-            '</p><h6>Comment: </h6><p>' + data.reviews[i].comment  +
-            '</p><h6>Have another?: </h6><p>' + " I'll have another! " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link" >Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name = "edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">'+ "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel" >Cancel</button></fieldset></form></div></div>');
-        window.scrollTo(0, 0);
-    } else {
-        window.scrollTo(0, 0);
-        $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
-            '</p><h6>Comment: </h6><p>' + data.reviews[i].comment +
-            '</p><h6>Have another?: </h6><p>' + " Nah " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link">Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name="edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel">Cancel</button></fieldset></form></div></div>');
-    }
+            for (let i = 0; i < data.reviews.length; i++) {
+
+                if (data.reviews[i].haveAnother) {
+                    $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+                        '</p><h6>Comment: </h6><p>' + data.reviews[i].comment +
+                        '</p><h6>Have another?: </h6><p>' + " I'll have another! " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link" >Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name = "edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel" >Cancel</button></fieldset></form></div></div>');
+                    window.scrollTo(0, 0);
+                } else {
+                    window.scrollTo(0, 0);
+                    $('.filtered-reviews-cont').append('<div id="filtered-reviews" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><div class="row"><div class ="col-md-6">' + '<h6>Reviewer:</h6><p>' + data.reviews[i].userName +
+                        '</p><h6>Comment: </h6><p>' + data.reviews[i].comment +
+                        '</p><h6>Have another?: </h6><p>' + " Nah " + '</p></div>' + '<div class="col-md-6"><div class ="edit-delete-cont" data-review-id="' + data.reviews[i].id + '" data-user-id="' + data.reviews[i].user + '"><a href="#" class="edit-link">Edit</a><a href="#" class ="delete-link" >Delete</a></div><div class="edit-input" hidden><form class="edit-review-form" action="#" method="PUT"><fieldset><label for="edit-review-comment">Comment:</label><input name="edit-review-comment" type="text" class="edit-review-comment" maxlength = "200"></fieldset><fieldset><label for="edit-review-have-another">' + "I'll have another!" + '</label><input type="checkbox" name="edit-review-have-another" class="edit-review-have-another"></fieldset><fieldset><button type="submit" class="edit-review-submit">Submit</button><button type ="reset" class="edit-review-cancel">Cancel</button></fieldset></form></div></div>');
+                }
             }
         }
-
     },
 
+// Greets the current logged in user with their username
     displayUserInfo: function () {
         $(".greeting").html(`Hi, ${state.currentUser}!`);
     },
 
+// Hides the user greeting
     hideUserInfo: function () {
         $(".greeting").addClass("hidden");
     },
 
+// General function for displaying different alert messages
     showAlert: function (alert) {
         const displayTime = 2000;
 
@@ -67,6 +72,7 @@ for (let i = 0; i < data.reviews.length; i++) {
         window.scrollTo(0, 0);
     },
 
+// General function for displaying different error messages
     showError: function (error) {
         const displayTime = 2000;
 
@@ -79,12 +85,11 @@ for (let i = 0; i < data.reviews.length; i++) {
 
         window.scrollTo(0, 0);
     }
-
-
 };
 
-
+// Functions that are event listeners
 const EventListeners = {
+    // Listeners start listening when the main app first gets called
     listenersStarted: false,
     startListeners: function () {
         if (!this.listenersStarted) {
@@ -114,6 +119,7 @@ const EventListeners = {
         }
     },
 
+// When new beer is clicked, new beer form is shown, beer categories and styles generation functions gets called to populate drop downs in new beer form
     newBeerClick: function () {
         $(".new-beer-link").on("click", function (event) {
             event.preventDefault();
@@ -123,6 +129,7 @@ const EventListeners = {
         });
     },
 
+// Cancel button in new beer form resets and hides form when clicked
     beerCancel: function () {
         $("#cancel-beer").on("click", function () {
             $("#form-submit-beer").trigger('reset');
@@ -131,6 +138,7 @@ const EventListeners = {
 
     },
 
+// When new review is clicked, new review form is show
     newReviewClick: function () {
         $(".new-review-link").on("click", function (event) {
             event.preventDefault();
